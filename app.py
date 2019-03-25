@@ -1,26 +1,31 @@
 from flask import Flask,render_template,request,redirect
-#import ulysses
+import requests, os
+import bowie
 
 app = Flask(__name__)
 
 app.vars={}
-urls=""
 
 @app.route('/',methods=['GET'])
-def index():
-    	#return render_template('tool.html')
+def deftones():
         return "you GETTED me"
 
 @app.route('/slack',methods=['POST'])
-def index2():
-	# app.vars['url'] = request.form['url']
-	# urls = str(app.vars['url'])
-	# ulysses.ithaca(urls)
-	# title = ulysses.title
-	# wcount = ulysses.wcount
-	# return render_template('result.html',ptitle=title)
-    content = request.get_json()
-    return str(content["challenge"])
+def weezer():
+    payload = request.get_json()
+    response = bowie.ziggy(payload)
+    sendToSlack(response)
+    #return str(payload["challenge"])
+
+
+def sendToSlack(response):
+    BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
+    payload = {'text': response, 'channel': 'CH02K9AEA'}
+    headers = {'Content-type': 'application/json', 'Authorization':'Bearer '+BOT_USER_TOKEN}
+    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=payload)
+
+
+
 
 if __name__ == "__main__":
     app.run()
