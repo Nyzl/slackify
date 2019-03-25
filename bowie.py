@@ -3,12 +3,7 @@
 
 import app
 import string
-import math
-import sys
-from PIL import Image
-from PIL import ImageFont
-from PIL import ImageDraw
-from bs4 import BeautifulSoup as bs
+import json
 from urllib.request import urlopen
 import re
 
