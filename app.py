@@ -19,7 +19,8 @@ def index2():
 	# title = ulysses.title
 	# wcount = ulysses.wcount
 	# return render_template('result.html',ptitle=title)
-    return "you POSTED me"
+    content = request.get_json()
+    return content
 
 if __name__ == "__main__":
     app.run()
