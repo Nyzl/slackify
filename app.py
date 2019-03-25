@@ -19,8 +19,8 @@ def index2():
 	# title = ulysses.title
 	# wcount = ulysses.wcount
 	# return render_template('result.html',ptitle=title)
-    content = request.json()
-    return content
+    content = request.get_json()
+    return str(content["challenge"])
 
 if __name__ == "__main__":
     app.run()
