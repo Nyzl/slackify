@@ -14,7 +14,7 @@ def deftones():
 def weezer():
     payload = request.get_json()
     response = bowie.ziggy(payload)
-    sendToSlack(response)
+    return sendToSlack(response)
     #return str(payload["challenge"])
 
 
