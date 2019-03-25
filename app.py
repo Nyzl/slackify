@@ -19,7 +19,7 @@ def index2():
 	# title = ulysses.title
 	# wcount = ulysses.wcount
 	# return render_template('result.html',ptitle=title)
-    content = request.get_json()
+    content = request.json()
     return content
 
 if __name__ == "__main__":
