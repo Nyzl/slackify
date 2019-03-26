@@ -9,6 +9,10 @@ import re
 
 def ziggy (payload):
     return "i'm in space, man"
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 6591911... Update bowie.py
 
 if __name__ == "__main__":
     ziggy.run()
