@@ -25,43 +25,5 @@ def ziggy (payload):
     else:
       	return "What?"
 
-def major_tom (payload):
-	if payload["type"] == "interactive_message":
-		open_dialog = (
-			"trigger_id" : payload["trigger_id"],
-            "dialog" : {
-                "title": "Request a coffee",
-                "submit_label": "Submit",
-                "callback_id": user_id + "coffee_order_form",
-                "elements": [
-                    {
-                        "label": "Coffee Type",
-                        "type": "select",
-                        "name": "meal_preferences",
-                        "placeholder": "Select a drink",
-                        "options": [
-                            {
-                                "label": "Cappuccino",
-                                "value": "cappuccino"
-                            },
-                            {
-                                "label": "Latte",
-                                "value": "latte"
-                            },
-                            {
-                                "label": "Pour Over",
-                                "value": "pour_over"
-                            },
-                            {
-                                "label": "Cold Brew",
-                                "value": "cold_brew"
-                            }
-                        ]
-                    }
-                ]
-            }
-		)
-		print(open_dialog)
-
 if __name__ == "__main__":
     ziggy.run()
