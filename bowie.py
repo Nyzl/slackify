@@ -14,10 +14,10 @@ def ziggy (payload):
           "color": "#3AA3E3",
           "attachment_type": "default",
           "actions": [{
-            "name": "coffee_order",
-            "text": ":coffee: Order Coffee",
+            "name": "create_playlist",
+            "text": ":guitar: Let's go!",
             "type": "button",
-            "value": "coffee_order"
+            "value": "create_playlist"
             }]
           }]
         }
