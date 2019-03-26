@@ -6,11 +6,10 @@ import re
 
 def ziggy (payload):
   if payload["event"]["type"] == "app_mention":
-    return "i'm in the curve, man"
-  else:
-    #return "I'm confused"
-    return str(payload["event"]["type"])
-    
+    if "make a playlist" in payload["event"]["text"]:
+      return "So, ya wanna make a playlist, eh?"
+    else:
+      return "i'm in the curve, man"
 
 if __name__ == "__main__":
     ziggy.run()
