@@ -21,7 +21,8 @@ def ziggy(payload):
 					}]					
 				}]
 			}
-		
+		else:
+			return "What?"
 	else:
 		return "What?"
 
