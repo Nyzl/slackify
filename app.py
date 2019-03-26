@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request,redirect
 import requests, os, json
 import bowie
+import claypool
 from boto.s3.connection import S3Connection
 
 
@@ -23,6 +24,11 @@ def weezer():
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
 
     return str(r.text)
+
+@app.route('/test',methods=['POST'])
+def primus():
+    spotty =claypool.les()
+    return spotty
 
 
 if __name__ == "__main__":
