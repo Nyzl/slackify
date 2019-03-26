@@ -27,8 +27,7 @@ def ziggy (payload):
 
 def major_tom (payload):
 	if payload["type"] == "interactive_message":
-		
-		return {
+		open_dialog = (
 			"trigger_id" : payload["trigger_id"],
             "dialog" : {
                 "title": "Request a coffee",
@@ -61,8 +60,7 @@ def major_tom (payload):
                     }
                 ]
             }
-		}
-		
+		)		
 
 if __name__ == "__main__":
     ziggy.run()

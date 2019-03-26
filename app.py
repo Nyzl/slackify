@@ -22,6 +22,7 @@ def weezer():
 
     return str(r.text)
 
+@app.route("/slack/message_actions",methods=['POST'])
 def tame_impala():
 	BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
   	payload = request.get_json()
@@ -31,7 +32,7 @@ def tame_impala():
 	headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
 	r = requests.post("https://slack.com/api/dialog.open", headers=headers, data=json.dumps(payload))
 	
-	return str(r.text)
+	return "Tame Impala"
   
 if __name__ == "__main__":
     app.run()
