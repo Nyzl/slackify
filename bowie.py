@@ -10,7 +10,7 @@ import re
 def ziggy (payload):
   
   if payload.event.type == "app_mention":
-    if "make a playlist" in payload.event.text
+    #if "make a playlist" in payload.event.text
     #or "make playlist" in payload.event.text or "create a playlist" in payload.event.text or "create playlist" in payload.event.text:
       return "So, you wanna make a playlist eh?"
 
