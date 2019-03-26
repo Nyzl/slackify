@@ -10,6 +10,5 @@ import re
 def ziggy (payload):
     return "i'm in space, man"
 
-
 if __name__ == "__main__":
     ziggy.run()
