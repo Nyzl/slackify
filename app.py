@@ -14,8 +14,8 @@ def deftones():
 @app.route('/slack',methods=['POST'])
 def weezer():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
-    slack_message = json.loads(request.body["payload"])
-    response = bowie.ziggy(slack_message)
+    payload = request.get_json()
+    response = bowie.ziggy(payload)
 
     payload = {"text":response, "channel":"CH02K9AEA"}
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
