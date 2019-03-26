@@ -1,8 +1,7 @@
 import app
 import string
 import json
-from urllib.request
-import urlopen
+from urllib.request import urlopen
 import re
 
 def ziggy(payload):
