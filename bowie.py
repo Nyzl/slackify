@@ -23,11 +23,13 @@ def ziggy(payload):
 			}
 		else:
 			return {
-				"text": "What?"
+				"text": "What?",
+				"attachments": ""
 			}
 	else:
 		return {
-			"text": "What?"
+			"text": "What?",
+			"attachments": ""
 		}
 
 if __name__ == "__main__":
