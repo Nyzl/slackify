@@ -22,7 +22,6 @@ def weezer():
 
     return str(r.text)
 
-@app.route("/slack/message_actions",methods=['POST'])
 def tame_impala():
 	BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
   	payload = request.get_json()
