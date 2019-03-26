@@ -15,13 +15,14 @@ def weezer():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     payload = request.get_json()
     response = bowie.ziggy(payload)
+    trigger_id = payload["trigger_id"]
 
     #payload = {"text":response["text"], "attachments":response["attachments"] ,"channel":"CH02K9AEA"}
     #headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
     #r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
 
     payload = {
-        "trigger_id":"",
+        "trigger_id": trigger_id,
         "dialog":{
             "title": "Request a coffee",
             "submit_label": "Submit",
