@@ -21,10 +21,11 @@ def weezer():
     #r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
 
     payload = {
-        "trigger_id":"", "dialog":{
+        "trigger_id":"",
+        "dialog":{
             "title": "Request a coffee",
             "submit_label": "Submit",
-            "callback_id": user_id + "coffee_order_form",
+            "callback_id": "",
             "elements": [
                 {
                     "label": "Coffee Type",
