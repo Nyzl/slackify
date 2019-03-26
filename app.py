@@ -18,7 +18,7 @@ def weezer():
     payload = request.get_json()
     response = bowie.ziggy(payload)
 
-    payload = {"text":"goose", "channel":"CH02K9AEA"}
+    payload = {"text":response, "channel":"CH02K9AEA"}
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
 
