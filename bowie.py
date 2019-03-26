@@ -22,9 +22,13 @@ def ziggy(payload):
 				}]
 			}
 		else:
-			return "What?"
+			return {
+				"text": "What?"
+			}
 	else:
-		return "What?"
+		return {
+			"text": "What?"
+		}
 
 if __name__ == "__main__":
 	ziggy.run()
