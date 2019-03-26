@@ -60,7 +60,8 @@ def major_tom (payload):
                     }
                 ]
             }
-		)		
+		)
+		print(open_dialog)
 
 if __name__ == "__main__":
     ziggy.run()

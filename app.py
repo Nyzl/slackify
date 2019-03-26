@@ -22,17 +22,17 @@ def weezer():
 
     return str(r.text)
 
-@app.route("/slack",methods=['POST'])
-def tame_impala():
-	BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
-  	payload = request.get_json()
-    response = bowie.major_tom(payload)
+#@app.route("/slack",methods=['POST'])
+#def tame_impala():
+#	BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
+#  	payload = request.get_json()
+#    response = bowie.major_tom(payload)
 	
-	payload = {"trigger_id":payload["trigger_id"], "dialog":payload["dialog"]}
-	headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-	r = requests.post("https://slack.com/api/dialog.open", headers=headers, data=json.dumps(payload))
+#	payload = {"trigger_id":payload["trigger_id"], "dialog":payload["dialog"]}
+#	headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+#	r = requests.post("https://slack.com/api/dialog.open", headers=headers, data=json.dumps(payload))
 	
-	return "Tame Impala"
+#	return "Tame Impala"
   
 if __name__ == "__main__":
     app.run()
