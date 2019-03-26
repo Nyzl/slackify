@@ -3,7 +3,6 @@ import requests, os, json
 import bowie
 from boto.s3.connection import S3Connection
 
-
 app = Flask(__name__)
 app.vars={}
 
@@ -22,7 +21,6 @@ def weezer():
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
 
     return str(r.text)
-
 
 if __name__ == "__main__":
     app.run()
