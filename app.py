@@ -25,10 +25,10 @@ def weezer():
 
     return str(r.text)
 
-@app.route('/test',methods=['POST'])
-def primus():
-    spotty =claypool.les()
-    return spotty
+#@app.route('/test',methods=['POST'])
+#def primus():
+#    spotty =claypool.les()
+#    return spotty
 
 
 if __name__ == "__main__":
