@@ -52,8 +52,8 @@ def weezer():
                 ]
             }
         }
-        headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-        r = requests.post("https://slack.com/api/dialog.open", headers=headers)
+        #headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+        r = requests.post("https://slack.com/api/dialog.open?token="+BOT_USER_TOKEN+"&dialog="+payload+"&trigger_id="+trigger_id)
         return str(r.text)
 
     else:
