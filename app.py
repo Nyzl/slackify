@@ -5,7 +5,6 @@ from boto.s3.connection import S3Connection
 
 
 app = Flask(__name__)
-
 app.vars={}
 
 @app.route('/',methods=['GET'])
