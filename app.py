@@ -15,7 +15,7 @@ def deftones():
 def weezer():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = request.get_json()
-    response = bowie.ziggy(in_payload)
+    #response = bowie.ziggy(in_payload)
 
     if in_payload["event"]["type"] == "block_actions":
         trigger_id = payload["trigger_id"]
