@@ -48,6 +48,12 @@ def ziggy(payload):
             response["text"] = "this was an event_callback"
             response["attachments"] = ""
             return response
+
+        elif payload["type"] == "block_actions":
+            response["text"] = "this is not a block_actions"
+            response["attachments"] = ""
+            return response
+
         else:
             response["text"] = "this is not an event_callback"
             response["attachments"] = ""
