@@ -18,7 +18,7 @@ else:
   time = ("Good evening")
 
 
-def ziggy(payload, request):
+def ziggy(payload):
     response = {}
     try:
         if payload["type"] == "event_callback":
