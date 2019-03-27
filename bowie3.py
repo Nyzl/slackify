@@ -18,13 +18,13 @@ else:
   time = ("Good evening")
 
 
-def ziggy(payload):
+def ziggy(payload, url):
     response = {}
     if payload["type"] == "event_callback" and payload["event"]["type"] == "app_mention":
         if bool(re.search('(?:make|create).*playlist.*called', payload["event"]["text"])):
             name = re.search('(?<=called ).*',payload["event"]["text"]).group()
             response["name"] = name
-            response["text"] = "So, ya wanna make a playlist, eh? called " + name
+            response["text"] = "So, ya wanna make a playlist, eh? called " + name + "\\nclick this..."
             response["attachments"] = ""
             return response
         else:
