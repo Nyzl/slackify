@@ -17,8 +17,8 @@ def weezer():
     payload = request.get_json()
     response = bowie.ziggy(payload)
 
-    if payload["event"]["type"] == "interactive_message":
-        trigger_id = payload["event"]["trigger_id"]
+    if payload["type"] == "interactive_message":
+        trigger_id = payload["trigger_id"]
         payload = {
             "trigger_id": trigger_id,
             "dialog":{
