@@ -28,7 +28,7 @@ def ziggy(payload):
 							"type": "section",
 							"text": {
 								"type": "plain_text",
-								"text": "So, ya wanna make a playlist, eh?"
+								"text": "So, ya wanna make a playlist, eh?",
 								"emoji": true
 							}
 						},
