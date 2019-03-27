@@ -14,12 +14,12 @@ def deftones():
 @app.route('/slack',methods=['POST'])
 def weezer():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
-    payload = request.get_json()
-    response = bowie.ziggy(payload)
+    in_payload = request.get_json()
+    response = bowie.ziggy(in_payload)
 
-    if payload["event"]["type"] == "block_actions":
+    if in_payload["event"]["type"] == "block_actions":
         trigger_id = payload["trigger_id"]
-        payload = {
+        out_payload = {
             "trigger_id": trigger_id,
             "dialog":{
                 "title": "Request a coffee",
@@ -54,7 +54,7 @@ def weezer():
             }
         }
         #headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-        r = requests.post(urllib.parse.quote("https://slack.com/api/dialog.open?token="+BOT_USER_TOKEN+"&dialog="+payload+"&trigger_id="+trigger_id))
+        r = requests.post(urllib.parse.quote("https://slack.com/api/dialog.open?token="+BOT_USER_TOKEN+"&dialog="+out_payload+"&trigger_id="+trigger_id))
         return str(r.text)
 
     else:
