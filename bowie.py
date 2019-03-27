@@ -24,7 +24,7 @@ def ziggy(payload):
 			return json.loads({
 			[
 				{
-					"blocks" [
+					"blocks": [
 						{
 							"type": "section",
 							"text": {
