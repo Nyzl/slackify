@@ -45,11 +45,11 @@ def ziggy(payload):
 
 			return response
 
-		#else:
-		#	return {
-		#		"text": "What?",
-		#		"attachments": ""
-		#	}
+		else:
+			return {
+				"text": "What?",
+				"attachments": ""
+			}
 	elif payload["event"]["type"] == "member_joined_channel":
 		user_id = payload["event"]["user"]
 		channel_id = payload["event"]["channel"]
