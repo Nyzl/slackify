@@ -22,7 +22,7 @@ def ziggy(payload):
     response = {}
     if payload["type"] == "event_callback" and payload["event"]["type"] == "app_mention":
         message = payload["event"]["text"]
-        if bool(re.search('(?>make|create).*playlist', message)):
+        if bool(re.search('(make|create).*playlist', message)):
             response["text"] = "So, ya wanna make a playlist, eh?"
             response["attachments"] = ""
             return response
