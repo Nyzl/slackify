@@ -22,8 +22,8 @@ def ziggy(payload):
     response = {}
     if payload["type"] == "event_callback" and payload["event"]["type"] == "app_mention":
         if bool(re.search('(?:make|create).*playlist.*called', payload["event"]["text"])):
-            name = re.search('(?<=called ).*',payload["event"]["text"])
-            response["text"] = "So, ya wanna make a playlist, eh? called " + name.group()
+            name = re.search('(?<=called ).*',payload["event"]["text"]).group()
+            response["text"] = "So, ya wanna make a playlist, eh? called " + name
             response["attachments"] = ""
             return response
         else:
@@ -36,23 +36,3 @@ def ziggy(payload):
         response["text"] = "what kind of thing was that"
         response["attachments"] = ""
         return response
-    # try:
-    #     if payload["type"] == "event_callback":
-    #         if payload["event"]["type"] == "app_mention":
-    #             message = payload["event"]["text"]
-    #             if bool(re.search('(?>make|create).*playlist', message)):
-    #                 response["text"] = "So, ya wanna make a playlist, eh?"
-    #                 response["attachments"] = ""
-    #                 return response
-    #         response["text"] = "try asking me to create a playlist"
-    #         response["attachments"] = ""
-    #         return response
-    #
-    #     else:
-    #         response["text"] = "this is not an event_callback"
-    #         response["attachments"] = ""
-    #         return response
-    # except:
-    #     response["text"] =  "nope"
-    #     response["attachments"] = ""
-    #     return response
