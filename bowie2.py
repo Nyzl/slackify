@@ -22,6 +22,29 @@ def ziggy(payload):
     response = {}
     try:
         if payload["type"] == "event_callback":
+            if payload["event"]["type"] == "app_mention":
+                if "make a playlist" in payload["event"]["text"] or "create a playlist" in payload["event"]["text"] or "create playlist" in payload["event"]["text"] or "make playlist" in payload["event"]["text"]:
+                    response["text"] = "So, ya wanna make a playlist, eh?"
+                    response["attachments"] = [
+        				{
+        					"blocks": [
+        						{
+        							"type": "actions",
+        							"elements": [
+        								{
+        									"type": "button",
+        									"text": {
+        										"type": "plain_text",
+        										"text": ":guitar: Let's go!"
+        										},
+        									"value": "create_playlist"
+        								}
+        							]
+        						}
+        					]
+        				}
+        			]
+                    return response
             response["text"] = "this was an event_callback"
             response["attachments"] = ""
             return response
