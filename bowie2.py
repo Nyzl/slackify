@@ -19,10 +19,17 @@ else:
 
 
 def ziggy(payload):
+    response = {}
     try:
         if payload["type"] == "event_callback":
-            return "this was an event_callback"
+            response["text"] = "this was an event_callback"
+            response["attachments"] = ""
+            return response
         else:
-            return "this is not an event_callback"
+            response["text"] = "this is not an event_callback"
+            response["attachments"] = ""
+            return response
     except:
-        return str(payload)
+        response["text"] =  str(payload)
+        response["attachments"] = ""
+        return response

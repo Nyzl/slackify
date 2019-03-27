@@ -20,7 +20,8 @@ def weezer():
     out_payload = {
     "channel": "CH02K9AEA",
     "token": str(BOT_USER_TOKEN),
-    "text": response
+    "text": response["text"],
+    "attachments": response["attachments"]
     }
 
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
