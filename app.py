@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,redirect
 import requests, os, json
-import bowie, bowie2
+import bowie, bowie2, bowie3
 from boto.s3.connection import S3Connection
 import urllib
 
@@ -15,7 +15,7 @@ def deftones():
 def weezer():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = request.get_json()
-    response = bowie2.ziggy(in_payload, request.data)
+    response = bowie3.ziggy(in_payload, request.data)
 
     out_payload = {
     "channel": "CH02K9AEA",
