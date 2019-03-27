@@ -15,7 +15,7 @@ def deftones():
 def weezer():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = request.get_json()
-    response = bowie3.ziggy(in_payload, request.data)
+    response = bowie3.ziggy(in_payload)
 
     out_payload = {
     "channel": "CH02K9AEA",
