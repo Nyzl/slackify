@@ -73,8 +73,7 @@ def weezer():
                                     "type": "button",
                                     "text": {
                                         "type": "plain_text",
-                                        "text": ":guitar: Let's go!",
-                                        "emoji": "true"
+                                        "text": ":guitar: Let's go!"
                                     },
                                     "value": "create_playlist"
                                 }
