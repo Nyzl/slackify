@@ -17,14 +17,14 @@ def weezer():
     in_payload = request.get_json()
     response = bowie2.ziggy(in_payload)
 
-    payload = {
+    out_payload = {
     "channel": "CH02K9AEA",
     "token": str(BOT_USER_TOKEN),
     "text": response
     }
 
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
+    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
     return str(r.text)
 
     # if in_payload["event"]["type"] == "block_actions":
