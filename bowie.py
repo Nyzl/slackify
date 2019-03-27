@@ -4,6 +4,20 @@ import json
 from urllib.request import urlopen
 import re
 
+import datetime
+import random
+
+# work out what time of day it is
+currentTime = datetime.datetime.now()
+currentTime.hour
+0
+if currentTime.hour < 12:
+  time = ("Good morning")
+elif 12 <= currentTime.hour < 18:
+  time = ("Good afternoon")
+else:
+  time = ("Good evening")
+
 def ziggy(payload):
 	if payload["event"]["type"] == "app_mention":
 		if "make a playlist" in payload["event"]["text"] or "create a playlist" in payload["event"]["text"] or "create playlist" in payload["event"]["text"] or "make playlist" in payload["event"]["text"]:
@@ -30,7 +44,7 @@ def ziggy(payload):
 		user_id = payload["event"]["user"]
 		channel_id = payload["event"]["channel"]
 		return {
-			"text": "Hey @" + user_id + ", welcome to the #music channel :wave: :guitar:",
+			"text": time + " @" + user_id + "! Welcome to the #music channel :wave: :guitar:",
 			"attachments" : ""
 		}
 
