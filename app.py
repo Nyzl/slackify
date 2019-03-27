@@ -67,11 +67,18 @@ def weezer():
                 {
                     "blocks": [
                         {
-                            "type": "section",
-                            "text": {
-                                "type": "plain_text",
-                                "text": "testing blocks"
-                            }
+                            "type": "actions",
+                            "elements": [
+                                {
+                                    "type": "button",
+                                    "text": {
+                                        "type": "plain_text",
+                                        "text": ":guitar: Let's go!",
+                                        "emoji": true
+                                    },
+                                    "value": "create_playlist"
+                                }
+                            ]
                         }
                     ]
                 }
