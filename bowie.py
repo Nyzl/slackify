@@ -30,7 +30,7 @@ def ziggy(payload):
 		user_id = payload["event"]["user"]
 		channel_id = payload["event"]["channel"]
 		return {
-			"text": "Hey @" + user_id + ", welcome to the #music channel\n\nEvery Friday we have a theme. We add music to a collaborative playlist on Spotify that matches this theme. Highlights include \"Songs on Donald Trumps iPod\"\n\nI'm also here to help out with making the playlist. You can say hello to me by mentioning me and I'll respond to you. For now I'm a bit dumb, but I'll get smarter, I promise.\n\nIf you mention me and ask me to create a playlist I'll do this for you. All you need to do is tell me the name and theme and job's a good'un.",
+			"text": "Hey @" + user_id + ", welcome to the #music channel :wave: :guitar:",
 			"attachments" : ""
 		}
 
