@@ -2,6 +2,7 @@ from flask import Flask,render_template,request,redirect
 import requests, os, json
 import bowie
 from boto.s3.connection import S3Connection
+import urllib
 
 app = Flask(__name__)
 app.vars={}
@@ -16,8 +17,8 @@ def weezer():
     payload = request.get_json()
     response = bowie.ziggy(payload)
 
-    if payload["type"] == "interactive_message":
-        trigger_id = payload["trigger_id"]
+    if payload["event"]["type"] == "interactive_message":
+        trigger_id = payload["event"]["trigger_id"]
         payload = {
             "trigger_id": trigger_id,
             "dialog":{
@@ -53,7 +54,7 @@ def weezer():
             }
         }
         #headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-        r = requests.post("https://slack.com/api/dialog.open?token="+BOT_USER_TOKEN+"&dialog="+payload+"&trigger_id="+trigger_id)
+        r = requests.post(urllib.parse.quote("https://slack.com/api/dialog.open?token="+BOT_USER_TOKEN+"&dialog="+payload+"&trigger_id="+trigger_id))
         return str(r.text)
 
     else:
