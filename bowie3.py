@@ -20,14 +20,19 @@ else:
 
 def ziggy(payload):
     response = {}
-    if payload["type"] == "event_callback" and payload["event"]["type"] == "app_mention" and bool(re.search('(make|create).*playlist', payload["event"]["text"])):
-        response["text"] = "So, ya wanna make a playlist, eh?"
-        response["attachments"] = ""
-        return response
+    if payload["type"] == "event_callback" and payload["event"]["type"] == "app_mention":
+        if bool(re.search('(make|create).*playlist', payload["event"]["text"])):
+            response["text"] = "So, ya wanna make a playlist, eh?"
+            response["attachments"] = ""
+            return response
+        else:
+            response["text"] = "what do you want from me?"
+            response["attachments"] = ""
+            return response
 
     else:
         text = str(payload)
-        response["text"] = "what kind of thing was that, it wasn't an event_callback & app_mention  -  " + text.replace("@Slackify", "xxx")
+        response["text"] = "what kind of thing was that"
         response["attachments"] = ""
         return response
     # try:
