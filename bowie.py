@@ -18,7 +18,7 @@ def ziggy(payload):
 						"text": ":guitar: Let's go!",
 						"type": "button",
 						"value": "create_playlist"
-					}]					
+					}]
 				}]
 			}
 		else:
@@ -26,6 +26,14 @@ def ziggy(payload):
 				"text": "What?",
 				"attachments": ""
 			}
+	elif payload["event"]["type"] == "member_joined_channel":
+		user_id = payload["event"]["user"]
+		channel_id = payload["event"]["channel"]
+		return {
+			"text": "Hey " + user_id + ", welcome to the " + channel_id,
+			"attachments" : ""
+		}
+
 	else:
 		return {
 			"text": "What?",
