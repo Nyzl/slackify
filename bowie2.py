@@ -45,7 +45,7 @@ def ziggy(payload, request):
         				}
         			]
                     return response
-            response["text"] = "this was an event_callback"
+            response["text"] = "this was an event_callback: "+str(request)
             response["attachments"] = ""
             return response
 
