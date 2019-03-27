@@ -26,8 +26,8 @@ def ziggy(payload):
         return response
 
     else:
-        str = str(payload)
-        response["text"] = "what kind of thing was that, it wasn't an event_callback & app_mention  -  "+str.replace("@Slackify", "xxx")
+        text = str(payload)
+        response["text"] = "what kind of thing was that, it wasn't an event_callback & app_mention  -  " + text.replace("@Slackify", "xxx")
         esponse["attachments"] = ""
         return response
     # try:
