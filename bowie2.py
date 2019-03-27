@@ -19,4 +19,6 @@ else:
 
 
 def ziggy(payload):
+    if payload["type"] == "event_callback":
+        return "this was an event called type"
     return str(payload)
