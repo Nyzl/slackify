@@ -30,7 +30,7 @@ def ziggy(payload):
 		user_id = payload["event"]["user"]
 		channel_id = payload["event"]["channel"]
 		return {
-			"text": "Hey " + user_id + ", welcome to the " + channel_id,
+			"text": "Hey @" + user_id + ", welcome to the #music channel"
 			"attachments" : ""
 		}
 
