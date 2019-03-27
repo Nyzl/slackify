@@ -1,6 +1,6 @@
-from flask import Flask,render_template,request,redirect
-import requests, os, json
-import bowie, bowie2, bowie3
+from flask import Flask,render_template,request,redirect,g
+import requests,os,json,base64,urllib
+import bowie,bowie2,bowie3
 from boto.s3.connection import S3Connection
 import urllib
 
