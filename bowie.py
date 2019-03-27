@@ -29,7 +29,6 @@ def ziggy(payload):
 							"text": {
 								"type": "plain_text",
 								"text": "So, ya wanna make a playlist, eh?",
-								"emoji": true
 							}
 						},
 						{
@@ -40,7 +39,6 @@ def ziggy(payload):
 									"text": {
 										"type": "plain_text",
 										"text": ":guitar: Let's go!",
-										"emoji": true
 									},
 									"value": "create_playlist"
 								}
