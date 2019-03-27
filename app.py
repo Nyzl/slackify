@@ -23,6 +23,10 @@ def weezer():
     "text": response
     }
 
+    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
+    return str(r.text)
+
     # if in_payload["event"]["type"] == "block_actions":
     #     trigger_id = payload["trigger_id"]
     #     out_payload = {
