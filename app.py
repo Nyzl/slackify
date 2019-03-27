@@ -62,6 +62,7 @@ def weezer():
         payload = {
             "channel": "CH02K9AEA",
             "token": str(BOT_USER_TOKEN),
+            "text": "So, ya wanna make a playlist, eh?",
             "attachments": [
                 {
                     "blocks": [
