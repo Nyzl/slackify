@@ -37,7 +37,8 @@ def ziggy(payload, request):
         										"type": "plain_text",
         										"text": ":guitar: Let's go!"
         										},
-        									"value": "create_playlist"
+        									"value": "create_playlist",
+                                            "action_id":"playlist_button"
         								}
         							]
         						}
