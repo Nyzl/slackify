@@ -58,7 +58,7 @@ def weezer():
         return str(r.text)
 
     else:
-        payload = {"text":response["text"], "attachments":response["attachments"] ,"channel":"CH02K9AEA"}
+        payload = {"channel":"CH02K9AEA", "attachments":response}
         headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
         r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
 
