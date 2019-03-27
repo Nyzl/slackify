@@ -45,13 +45,13 @@ def ziggy(payload, request):
         				}
         			]
                     return response
-            response["text"] = "this was an event_callback: "+str(request)
+            response["text"] = "this was an event_callback: "
             response["attachments"] = ""
             return response
 
 
         else:
-            response["text"] = "this is not an event_callback"+str(request)
+            response["text"] = "this is not an event_callback"
             response["attachments"] = ""
             return response
     except:
