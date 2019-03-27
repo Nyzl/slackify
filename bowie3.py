@@ -21,12 +21,13 @@ else:
 def ziggy(payload):
     response = {}
     if payload["type"] == "event_callback" and payload["event"]["type"] == "app_mention":
-        if bool(re.search('(make|create).*playlist', payload["event"]["text"])):
-            response["text"] = "So, ya wanna make a playlist, eh?"
+        if bool(re.search('(?:make|create).*playlist.*called', payload["event"]["text"])):
+            name = re.search('(?<=called ).*',payload["event"]["text"])
+            response["text"] = "So, ya wanna make a playlist, eh? called " + name
             response["attachments"] = ""
             return response
         else:
-            response["text"] = "what do you want from me?"
+            response["text"] = "what do you want from me? Try calling your playlist something"
             response["attachments"] = ""
             return response
 

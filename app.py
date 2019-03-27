@@ -28,58 +28,6 @@ def weezer():
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
     return str(r.text)
 
-    # if in_payload["event"]["type"] == "block_actions":
-    #     trigger_id = payload["trigger_id"]
-    #     out_payload = {
-    #         "trigger_id": trigger_id,
-    #         "dialog":{
-    #             "title": "Request a coffee",
-    #             "submit_label": "Submit",
-    #             "callback_id": "",
-    #             "elements": [
-    #                 {
-    #                     "label": "Coffee Type",
-    #                     "type": "select",
-    #                     "name": "meal_preferences",
-    #                     "placeholder": "Select a drink",
-    #                     "options": [
-    #                         {
-    #                             "label": "Cappuccino",
-    #                             "value": "cappuccino"
-    #                         },
-    #                         {
-    #                             "label": "Latte",
-    #                             "value": "latte"
-    #                         },
-    #                         {
-    #                             "label": "Pour Over",
-    #                             "value": "pour_over"
-    #                         },
-    #                         {
-    #                             "label": "Cold Brew",
-    #                             "value": "cold_brew"
-    #                         }
-    #                     ]
-    #                 }
-    #             ]
-    #         }
-    #     }
-    #
-    #     r = requests.post(urllib.parse.quote("https://slack.com/api/dialog.open?token="+BOT_USER_TOKEN+"&dialog="+out_payload+"&trigger_id="+trigger_id))
-    #     return str(r.text)
-    #
-    # else:
-    #
-    #     payload = {
-    #         "channel": "CH02K9AEA",
-    #         "token": str(BOT_USER_TOKEN),
-    #         "text": response["text"],
-    #         "attachments": response["attachments"]
-    #     }
-    #     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-    #     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
-
-        #return str(r.text)
 
 if __name__ == "__main__":
     app.run()
