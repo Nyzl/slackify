@@ -29,7 +29,7 @@ def ziggy(payload):
 							"type": "section",
 							"text": {
 								"type": "plain_text",
-								"text": "So, ya wanna make a playlist, eh?",
+								"text": "So, ya wanna make a playlist, eh?"
 							}
 						},
 						{
@@ -39,7 +39,7 @@ def ziggy(payload):
 									"type": "button",
 									"text": {
 										"type": "plain_text",
-										"text": ":guitar: Let's go!",
+										"text": ":guitar: Let's go!"
 									},
 									"value": "create_playlist"
 								}
