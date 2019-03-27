@@ -55,6 +55,6 @@ def ziggy(payload):
             response["attachments"] = ""
             return response
     except:
-        response["text"] =  payload
+        response["text"] =  str(payload)
         response["attachments"] = ""
         return response
