@@ -21,7 +21,28 @@ else:
 def ziggy(payload):
 	if payload["event"]["type"] == "app_mention":
 		if "make a playlist" in payload["event"]["text"] or "create a playlist" in payload["event"]["text"] or "create playlist" in payload["event"]["text"] or "make playlist" in payload["event"]["text"]:
-			return "Goose"
+			response["text"] = "So, ya wanna make a playlist, eh?"
+			response["attachments"] = [
+				{
+					"blocks": [
+						{
+							"type": "actions",
+							"elements": [
+								{
+									"type": "button",
+									"text": {
+										"type": "plain_text",
+										"text": ":guitar: Let's go!"
+										},
+									"value": "create_playlist"
+								}
+							]
+						}
+					]
+				}
+			]
+
+			return response
 
 		else:
 			return {

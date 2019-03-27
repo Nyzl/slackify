@@ -62,26 +62,8 @@ def weezer():
         payload = {
             "channel": "CH02K9AEA",
             "token": str(BOT_USER_TOKEN),
-            "text": "So, ya wanna make a playlist, eh?",
-            "attachments": [
-                {
-                    "blocks": [
-                        {
-                            "type": "actions",
-                            "elements": [
-                                {
-                                    "type": "button",
-                                    "text": {
-                                        "type": "plain_text",
-                                        "text": ":guitar: Let's go!"
-                                    },
-                                    "value": "create_playlist"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+            "text": response["text"],
+            "attachments": response["attachments"]
         }
         headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
         r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
