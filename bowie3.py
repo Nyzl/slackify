@@ -19,18 +19,44 @@ else:
 
 
 def ziggy(payload, url):
-    response = {"name":"","text":"","attachments":""}
+    response = {"text":"","attachments":""}
     if payload["type"] == "event_callback" and payload["event"]["type"] == "app_mention":
-        if bool(re.search('(?:make|create).*playlist.*called', payload["event"]["text"])):
-            name = re.search('(?<=called ).*',payload["event"]["text"]).group()
-            response["name"] = name
-            response["text"] = "So, ya wanna make a playlist, eh? called " + name + "\nclick this..." + url
+
+        if bool(re.search('(?:make|create|haz).*playlist', payload["event"]["text"])):
+            response["text"] = "So, ya wanna make a playlist, eh?"
+            response["attachments"] = [
+                {
+                    "blocks": [
+                        {
+                            "type": "actions",
+                            "elements": [
+                                {
+                                    "type": "button",
+                                    "text": {
+                                        "type": "plain_text",
+                                        "text": ":guitar: Let's go!"
+                                        },
+                                    "value": "create_playlist",
+                                    "action_id":"playlist_button"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
             return response
         else:
-            response["text"] = "what do you want from me? Try calling your playlist something"
+            response["text"] = "What do you want from me, eh?"
+
             return response
+
+    elif payload["event"]["type"] == "member_joined_channel":
+        response["text"] = time + "! Welcome to the #music channel :wave: :guitar:"
+        return response
 
     else:
         text = str(payload)
-        response["text"] = "what kind of thing was that"
+
+        response["text"] = "What the heck was that?"
+
         return response
