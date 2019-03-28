@@ -54,14 +54,14 @@ def weezer():
     #in_payload = request.get_json()
     in_payload = json.loads(request.form["payload"])
     #response = bowie3.ziggy(in_payload, auth_url)
-    response = bowie3.ziggy(in_payload, auth_url)
     playlist_name = response["name"]
 
     out_payload = {
     "channel": "CH02K9AEA",
     "token": str(BOT_USER_TOKEN),
-    "text": response["text"],
-    "attachments": response["attachments"]
+    #"text": response["text"],
+    #"attachments": response["attachments"]
+    "text": str(in_payload)
     }
 
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
