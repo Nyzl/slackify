@@ -176,7 +176,7 @@ def callback():
     playlist_url = playlist_data["external_urls"]["spotify"]
 
     response = {"text":"","attachments":""}
-    response["text"] = "I've made a playlist called \"" + playlist_name + "\". The theme is \"" + playlist_theme + "\"\n\nHere's the link: " + playlist_url
+    response["text"] = "<@here>, I've made a playlist called \"" + playlist_name + "\". The theme is \"" + playlist_theme + "\"\n\nHere's the link: " + playlist_url
     slack_post(response)
 
     return "All done, you'll find the playlist in your Spotify. You can close this window now"
