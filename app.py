@@ -164,13 +164,14 @@ def callback():
     data = {}
     data["name"] = playlist_name
     data["description"] = playlist_theme
-    #data["collaborative"] = True
+    data["collaborative"] = True
+    payload = json.dumps(data)
 
     user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
     profile_response = requests.get(user_profile_api_endpoint, headers=authorization_header)
     profile_data = json.loads(profile_response.text)
     playlist_api_endpoint = "{}/playlists".format(profile_data["href"])
-    playlists_response = requests.post(playlist_api_endpoint, headers=authorization_header, data=json.dumps(data))
+    playlists_response = requests.post(playlist_api_endpoint, headers=authorization_header, data=payload)
     playlist_data = playlists_response.json()
 
     playlist_url = playlist_data["external_urls"]["spotify"]
