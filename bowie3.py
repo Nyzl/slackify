@@ -33,7 +33,7 @@ def ziggy(payload, url):
             return response
 
     elif payload["event"]["type"] == "member_joined_channel":
-        response["text"] = time + " @" + user_id + "! Welcome to the #music channel :wave: :guitar:"
+        response["text"] = time + "! Welcome to the #music channel :wave: :guitar:"
         response["attachments"] = ""
         return response
 
