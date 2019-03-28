@@ -112,7 +112,9 @@ def callback():
 
     response = {"text":"","attachments":""}
     response["text"] = "There we are, I've made a playlist called " + playlist_name + ". Here is the link: " + playlist_url
-    return slack_post(response)
+    slack_post(response)
+
+    return "you can close this now"
 
 def slack_post(response):
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
@@ -127,7 +129,7 @@ def slack_post(response):
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
 
-    return 0
+    return "you can close this now"
 
 if __name__ == "__main__":
     app.run()
