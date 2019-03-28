@@ -66,7 +66,7 @@ def weezer():
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
     return str(r.text)
-    print in_payload
+    print (in_payload)
 
 @app.route("/callback/q")
 def callback():
