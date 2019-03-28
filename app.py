@@ -109,6 +109,7 @@ def callback():
     playlist_data = playlists_response.json()
     #playlist_url = playlist_data["external_links"]["spotify"]
 
+    response = {"text":"","attachments":""}
     response["text"] = "There we are, I've made a playlist called " + playlist_name + ". Here is the link: " + str(playlist_data)
     return slack_post(response)
 
