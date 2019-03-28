@@ -110,7 +110,7 @@ def callback():
     playlist_url = playlists_response["external_links"]["spotify"]
 
     response["text"] = "There we are, I've made a playlist called " + playlist_name + ". Here is the link: " + playlist_url
-    return slack_post(response)
+    return slack_post(response.json())
 
 def slack_post(response):
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
