@@ -66,7 +66,7 @@ def weezer():
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
     return str(r.text)
 
-@app.route("/slack/actions")
+@app.route('/slack/actions',methods=['POST'])
 def wheatus():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = json.loads(request.form["payload"])
