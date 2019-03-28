@@ -158,7 +158,7 @@ def callback():
     profile_response = requests.get(user_profile_api_endpoint, headers=authorization_header)
     profile_data = json.loads(profile_response.text)
     playlist_api_endpoint = "{}/playlists".format(profile_data["href"])
-    playlists_response = requests.post(playlist_api_endpoint, headers=authorization_header, data=json.loads(data))
+    playlists_response = requests.post(playlist_api_endpoint, headers=authorization_header, data=json.dumps(data))
     playlist_data = playlists_response.json()
 
     playlist_url = playlist_data["external_urls"]["spotify"]
