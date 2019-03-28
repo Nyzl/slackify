@@ -1,7 +1,6 @@
 from flask import Flask,render_template,request,redirect,g
 import requests,os,json,base64,urllib
 import bowie,bowie2,bowie3
-from boto.s3.connection import S3Connection
 
 app = Flask(__name__)
 app.vars={}
@@ -21,7 +20,6 @@ SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 CLIENT_SIDE_URL = "http://127.0.0.1"
 SERVER_SIDE_URL = "https://slackifybot.herokuapp.com"
 PORT = 8080
-#REDIRECT_URI = "{}:{}/callback/q".format(CLIENT_SIDE_URL, PORT)
 REDIRECT_URI = "{}/callback/q".format(SERVER_SIDE_URL)
 SCOPE = "playlist-modify-public playlist-modify-private"
 STATE = ""
@@ -98,13 +96,12 @@ def callback():
     authorization_header["Content-Type"] = "application/json"
     data = {}
     data["name"] = playlist_name
-    #data = {"name":"A New Playlist"}
+    data["collaborative"] = True
 
     user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
     profile_response = requests.get(user_profile_api_endpoint, headers=authorization_header)
     profile_data = json.loads(profile_response.text)
     playlist_api_endpoint = "{}/playlists".format(profile_data["href"])
-    #playlist_api_endpoint = "https://api.spotify.com/v1/users/xu15ggjeufiorfq5pozsze64z/playlists"
     playlists_response = requests.post(playlist_api_endpoint, headers=authorization_header, data=json.dumps(data))
     playlist_data = playlists_response.json()
 
