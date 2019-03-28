@@ -19,7 +19,7 @@ else:
 
 
 def ziggy(payload, url):
-    response = {}
+    response = {"name":"","text":"","attachments":""}
     if payload["type"] == "event_callback" and payload["event"]["type"] == "app_mention":
         if bool(re.search('(?:make|create).*playlist.*called', payload["event"]["text"])):
             name = re.search('(?<=called ).*',payload["event"]["text"]).group()
