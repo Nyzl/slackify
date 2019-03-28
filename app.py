@@ -162,7 +162,7 @@ def callback():
 
     authorization_header["Content-Type"] = "application/json"
     data = {}
-    data["name"] = playlist_name
+    data["name"] = "#music " + playlist_name
     data["description"] = playlist_theme
     data["collaborative"] = True
     data["public"] = False
