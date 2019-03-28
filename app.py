@@ -66,6 +66,22 @@ def weezer():
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
     return str(r.text)
 
+@app.route("/slack/actions")
+def wheatus():
+    BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
+    in_payload = json.loads(request.form["payload"])
+
+    out_payload = {
+    "channel": "CH02K9AEA",
+    "token": str(BOT_USER_TOKEN),
+    "text": str(in_payload),
+    "attachments": ""
+    }
+
+    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
+    return str(r.text)
+
 @app.route("/callback/q")
 def callback():
     global playlist_name
