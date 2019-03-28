@@ -112,7 +112,8 @@ def wheatus():
         "channel": "CH02K9AEA",
         "token": str(BOT_USER_TOKEN),
         "text": "Hey <@" + in_payload["user"]["name"] + ">. I'm creating a playlist called \"" + in_payload["submission"]["playlist_name_input"] + "\"",
-        "attachments": [
+        "attachments": {
+        [
             {
                 "fallback": "Confirm your playlist, ya filthy animal" + auth_url,
                 "actions" [
@@ -124,6 +125,7 @@ def wheatus():
                 ]
             }
         ]
+        }
         }
 
         headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
