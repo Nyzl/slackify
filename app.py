@@ -54,7 +54,7 @@ def weezer():
     #in_payload = request.get_json()
     in_payload = json.loads(request.form["payload"])
     #response = bowie3.ziggy(in_payload, auth_url)
-    response = bowie2.ziggy(in_payload, auth_url)
+    response = bowie3.ziggy(in_payload, auth_url)
     playlist_name = response["name"]
 
     out_payload = {

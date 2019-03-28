@@ -25,7 +25,26 @@ def ziggy(payload, url):
             name = re.search('(?<=called ).*',payload["event"]["text"]).group()
             response["name"] = name
             response["text"] = "So, ya wanna make a playlist, eh?\n\n I can make a playlist called \"" + name + "\"\n\nClick this link to create it: " + url
-            response["attachments"] = ""
+            response["attachments"] = [
+                {
+                    "blocks": [
+                        {
+                            "type": "actions",
+                            "elements": [
+                                {
+                                    "type": "button",
+                                    "text": {
+                                        "type": "plain_text",
+                                        "text": ":guitar: Let's go!"
+                                        },
+                                    "value": "create_playlist",
+                                    "action_id":"playlist_button"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
             return response
         else:
             response["text"] = "What do you want from me? Try calling your playlist something"
