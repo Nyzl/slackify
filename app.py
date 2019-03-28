@@ -106,7 +106,7 @@ def wheatus():
         out_payload = {
         "channel": "CH02K9AEA",
         "token": str(BOT_USER_TOKEN),
-        "text": "Hey " + in_payload["user"]["id"] + ". I will create a playlist called \"" + in_payload["submission"]["playlist_name_input"] + "\"\n\n The theme will be \"" + in_payload["submission"]["theme_input"] + "\"",
+        "text": "Hey @" + in_payload["user"]["id"] + ". I will create a playlist called \"" + in_payload["submission"]["playlist_name_input"] + "\"\n\n The theme will be \"" + in_payload["submission"]["theme_input"] + "\"",
         "attachments": ""
         }
 
