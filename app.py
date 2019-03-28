@@ -179,7 +179,7 @@ def callback():
     response["text"] = "<@here>, I've made a playlist called \"" + playlist_name + "\". The theme is \"" + playlist_theme + "\"\n\nHere's the link: " + playlist_url
     slack_post(response)
 
-    return "All done, you'll find the playlist in your Spotify. You can close this window now"
+    return "All done. I've posted the link to the playlist in the #music channel. You can close this window now."
 
 def slack_post(response):
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
