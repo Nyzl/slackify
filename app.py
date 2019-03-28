@@ -111,8 +111,19 @@ def wheatus():
         out_payload = {
         "channel": "CH02K9AEA",
         "token": str(BOT_USER_TOKEN),
-        "text": "Hey <@" + in_payload["user"]["name"] + ">. I will create a playlist called \"" + in_payload["submission"]["playlist_name_input"] + "\"\n\n The theme will be \"" + in_payload["submission"]["theme_input"] + "\"click this to confirm: "+ auth_url,
-        "attachments": ""
+        "text": "Hey <@" + in_payload["user"]["name"] + ">. I'm creating a playlist called \"" + in_payload["submission"]["playlist_name_input"] + ",
+        "attachments": [
+            {
+                "fallback": "Confirm your playlist, ya filthy animal" + auth_url,
+                "actions" [
+                    {
+                        "type": "button",
+                        "text": "Confirm",
+                        "url": auth_url
+                    }
+                ]
+            }
+        ]
         }
 
         headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
@@ -165,10 +176,10 @@ def callback():
     playlist_url = playlist_data["external_urls"]["spotify"]
 
     response = {"text":"","attachments":""}
-    response["text"] = "There we are, I've made a playlist called " + playlist_name + ". Here is the link: " + playlist_url
+    response["text"] = "I've made a playlist called " + playlist_name + ". The theme is \"" + in_payload["submission"]["theme_input"] + "\". Here's the link: " + playlist_url
     slack_post(response)
 
-    return "you can close this now"
+    return "All done, you'll find the playlist in your Spotify\n\nYou can close this window now"
 
 def slack_post(response):
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
