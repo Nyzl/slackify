@@ -87,7 +87,11 @@ def wheatus():
             "elements": [
                 {
                     "type": "text",
+<<<<<<< HEAD
                     "label": "Playlist name, don't worry I'll add '#music' to the playlist name",
+=======
+                    "label": "Playlist name, don't worry, I'll add '#music' to the playlist name",
+>>>>>>> parent of 03e66d8... Revert "music message"
                     "name": "playlist_name_input"
                 },
                 {
