@@ -84,7 +84,7 @@ def wheatus():
     "dialog": {
         "callback_id": "playlist_button",
         "title": "Create a playlist",
-        "submit_label": ":musical_note: Gimme dat sweet ass playlist! :peach:",
+        "submit_label": "Create",
         "state": "Limo",
         "elements": [
             {
