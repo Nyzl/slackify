@@ -46,6 +46,7 @@ def deftones():
 @app.route('/slack',methods=['POST'])
 def weezer():
     #SPOTIFY authentication
+    global playlist_name
     url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in auth_query_parameters.items()])
     auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
 
