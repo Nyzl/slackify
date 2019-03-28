@@ -78,7 +78,7 @@ def wheatus():
         "trigger_id": trigger_id,
         "dialog": {
             "callback_id": "playlist_button",
-            "title": "Create that sweet playlist",
+            "title": "Create a playlist",
             "submit_label": "Create",
             "state": "Limo",
             "elements": [
