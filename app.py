@@ -70,34 +70,43 @@ def weezer():
 def wheatus():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = json.loads(request.form["payload"])
-    
-    trigger_id = in_payload["trigger_id"]
 
-    out_payload = {
-    "trigger_id": trigger_id,
-    "dialog": {
-        "callback_id": "playlist_button",
-        "title": "Create a playlist",
-        "submit_label": "Create",
-        "state": "Limo",
-        "elements": [
-            {
-                "type": "text",
-                "label": "Playlist name",
-                "name": "playlist_name_input"
-            },
-            {
-                "type": "text",
-                "label": "What's the theme?",
-                "name": "theme_input"
-            }
-        ]
-    }
-    }
+    if in_payload["type"] == "block_actions":
+        trigger_id = in_payload["trigger_id"]
 
-    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-    r = requests.post("https://slack.com/api/dialog.open", headers=headers, data=json.dumps(out_payload))
-    return str(r.text)
+        out_payload = {
+        "trigger_id": trigger_id,
+        "dialog": {
+            "callback_id": "playlist_button",
+            "title": "Create a playlist",
+            "submit_label": "Create",
+            "state": "Limo",
+            "elements": [
+                {
+                    "type": "text",
+                    "label": "Playlist name",
+                    "name": "playlist_name_input"
+                },
+                {
+                    "type": "text",
+                    "label": "What's the theme?",
+                    "name": "theme_input"
+                }
+            ]
+        }
+        }
+
+        headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+        r = requests.post("https://slack.com/api/dialog.open", headers=headers, data=json.dumps(out_payload))
+        return str(r.text)
+
+    elif in_payload["type"] == "dialog_submission":
+        out_payload = {
+        "channel": "CH02K9AEA",
+        "token": str(BOT_USER_TOKEN),
+        "text": "I will create a playlist called " + in_payload["submission"]["playlist_name_input"] + ".\n\n The theme will be " + in_payload["submission"]["theme_input"],
+        "attachments": ""
+        }
 
 @app.route("/callback/q")
 def callback():
