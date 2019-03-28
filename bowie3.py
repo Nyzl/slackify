@@ -19,13 +19,9 @@ else:
 
 
 def ziggy(payload, url):
-    #response = {"name":"","text":"","attachments":""}
     response = {"text":"","attachments":""}
     if payload["type"] == "event_callback" and payload["event"]["type"] == "app_mention":
-        #if bool(re.search('(?:make|create|haz).*playlist.*called', payload["event"]["text"])):
         if bool(re.search('(?:make|create|haz).*playlist', payload["event"]["text"])):
-            #name = re.search('(?<=called ).*',payload["event"]["text"]).group()
-            #response["name"] = name
             response["text"] = "So, ya wanna make a playlist, eh?"
             response["attachments"] = [
                 {
@@ -50,16 +46,13 @@ def ziggy(payload, url):
             return response
         else:
             response["text"] = "What do you want from me, eh?"
-            response["attachments"] = ""
             return response
 
     elif payload["event"]["type"] == "member_joined_channel":
         response["text"] = time + "! Welcome to the #music channel :wave: :guitar:"
-        response["attachments"] = ""
         return response
 
     else:
         text = str(payload)
         response["text"] = "What the heck was that?"
-        response["attachments"] = ""
         return response
