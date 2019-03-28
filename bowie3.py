@@ -19,12 +19,14 @@ else:
 
 
 def ziggy(payload, url):
-    response = {"name":"","text":"","attachments":""}
+    #response = {"name":"","text":"","attachments":""}
+    response = {"text":"","attachments":""}
     if payload["type"] == "event_callback" and payload["event"]["type"] == "app_mention":
-        if bool(re.search('(?:make|create|haz).*playlist.*called', payload["event"]["text"])):
-            name = re.search('(?<=called ).*',payload["event"]["text"]).group()
-            response["name"] = name
-            response["text"] = "So, ya wanna make a playlist, eh?\n\n I can make a playlist called \"" + name + "\"\n\nClick this link to create it: " + url
+        #if bool(re.search('(?:make|create|haz).*playlist.*called', payload["event"]["text"])):
+        if bool(re.search('(?:make|create|haz).*playlist', payload["event"]["text"])):
+            #name = re.search('(?<=called ).*',payload["event"]["text"]).group()
+            #response["name"] = name
+            response["text"] = "So, ya wanna make a playlist, eh?"
             response["attachments"] = [
                 {
                     "blocks": [
@@ -47,7 +49,7 @@ def ziggy(payload, url):
             ]
             return response
         else:
-            response["text"] = "What do you want from me? Try calling your playlist something"
+            response["text"] = "What do you want from me, eh?"
             response["attachments"] = ""
             return response
 
