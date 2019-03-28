@@ -37,7 +37,7 @@ auth_query_parameters = {
     "client_id": CLIENT_ID
 }
 
-playlist_name = ""
+playlist_name = "holder"
 
 @app.route('/',methods=['GET'])
 def deftones():
