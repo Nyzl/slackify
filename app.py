@@ -51,7 +51,8 @@ def weezer():
     auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
 
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
-    in_payload = request.get_json()
+    #in_payload = request.get_json()
+    in_payload = json.loads(request.form["payload"])
     response = bowie3.ziggy(in_payload, auth_url)
     playlist_name = response["name"]
 
