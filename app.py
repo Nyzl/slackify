@@ -37,6 +37,8 @@ auth_query_parameters = {
     "client_id": CLIENT_ID
 }
 
+playlist_name = ""
+
 @app.route('/',methods=['GET'])
 def deftones():
         return "you GETTED me"
@@ -50,6 +52,7 @@ def weezer():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = request.get_json()
     response = bowie3.ziggy(in_payload, auth_url)
+    playlist_name = response["name"]
 
     out_payload = {
     "channel": "CH02K9AEA",
@@ -101,7 +104,7 @@ def callback():
     playlists_response = requests.post(playlist_api_endpoint, headers=authorization_header, data=json.dumps(data))
     playlist_data = playlists_response.text
 
-    return str(playlist_data)
+    return str(playlist_data) + playlist_name
 
 if __name__ == "__main__":
     app.run()
