@@ -70,13 +70,7 @@ def weezer():
 def wheatus():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = json.loads(request.form["payload"])
-
-    #out_payload = {
-    #"channel": "CH02K9AEA",
-    #"token": str(BOT_USER_TOKEN),
-    #"text": response["text"],
-    #"attachments": ""
-    #}
+    
     trigger_id = in_payload["trigger_id"]
 
     out_payload = {
