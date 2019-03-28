@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,redirect,g
+from flask import Flask,render_template,request,redirect,g,make_response,Reponse
 import requests,os,json,base64,urllib
 import bowie,bowie2,bowie3
 from boto.s3.connection import S3Connection
@@ -112,13 +112,7 @@ def wheatus():
 
         headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
         r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
-        return {
-            "statusCode": 200,
-            "headers": {
-                "Content-Type": "application/json"
-            },
-            "body": ""
-        }
+        return make_response("", 200)
 
 @app.route("/callback/q")
 def callback():
