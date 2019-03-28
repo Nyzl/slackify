@@ -24,7 +24,7 @@ def ziggy(payload, url):
         if bool(re.search('(?:make|create|haz).*playlist.*called', payload["event"]["text"])):
             name = re.search('(?<=called ).*',payload["event"]["text"]).group()
             response["name"] = name
-            response["text"] = "So, ya wanna make a playlist, eh?\n\n I've made you one called \"" + name + "\"\n\nClick this link to open in Spotify: " + url
+            response["text"] = "So, ya wanna make a playlist, eh?\n\n I can make a playlist called \"" + name + "\"\n\nClick this link to create it: " + url
             response["attachments"] = ""
             return response
         else:
