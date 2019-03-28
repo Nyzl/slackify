@@ -108,6 +108,9 @@ def wheatus():
         "attachments": ""
         }
 
+        headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+        r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
+
 @app.route("/callback/q")
 def callback():
     global playlist_name
