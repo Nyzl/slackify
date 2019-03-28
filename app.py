@@ -118,7 +118,7 @@ def wheatus():
                 "actions": [
                     {
                         "type": "button",
-                        "text": "Confirm",
+                        "text": ":musical_note: Confirm",
                         "url": auth_url
                     }
                 ]
@@ -176,7 +176,7 @@ def callback():
     playlist_url = playlist_data["external_urls"]["spotify"]
 
     response = {"text":"","attachments":""}
-    response["text"] = "I've made a playlist called " + playlist_name + ". The theme is \"" + in_payload["submission"]["theme_input"] + "\". Here's the link: " + playlist_url
+    response["text"] = "I've made a playlist called " + playlist_name + ". The theme is \"" + playlist_theme + "\". Here's the link: " + playlist_url
     slack_post(response)
 
     return "All done, you'll find the playlist in your Spotify\n\nYou can close this window now"
