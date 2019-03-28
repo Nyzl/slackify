@@ -87,7 +87,7 @@ def wheatus():
             "elements": [
                 {
                     "type": "text",
-                    "label": "Playlist name",
+                    "label": "Playlist name, don't worry I'll add '#music' to the playlist name",
                     "name": "playlist_name_input"
                 },
                 {
