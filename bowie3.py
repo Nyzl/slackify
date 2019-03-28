@@ -25,15 +25,12 @@ def ziggy(payload, url):
             name = re.search('(?<=called ).*',payload["event"]["text"]).group()
             response["name"] = name
             response["text"] = "So, ya wanna make a playlist, eh? called " + name + "\nclick this..." + url
-            response["attachments"] = ""
             return response
         else:
             response["text"] = "what do you want from me? Try calling your playlist something"
-            response["attachments"] = ""
             return response
 
     else:
         text = str(payload)
         response["text"] = "what kind of thing was that"
-        response["attachments"] = ""
         return response
