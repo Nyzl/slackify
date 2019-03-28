@@ -83,19 +83,19 @@ def wheatus():
     "trigger_id": trigger_id,
     "dialog": {
         "callback_id": "playlist_button",
-        "title": "Request a Ride",
-        "submit_label": "Request",
+        "title": "Create a playlist",
+        "submit_label": ":musical_note: Gimme dat sweet ass playlist! :peach:",
         "state": "Limo",
         "elements": [
             {
                 "type": "text",
-                "label": "Pickup Location",
-                "name": "loc_origin"
+                "label": "Playlist name",
+                "name": "playlist_name_input"
             },
             {
                 "type": "text",
-                "label": "Dropoff Location",
-                "name": "loc_destination"
+                "label": "What's the theme?",
+                "name": "theme_input"
             }
         ]
     }
