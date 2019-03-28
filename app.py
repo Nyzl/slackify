@@ -101,6 +101,8 @@ def wheatus():
         return str(r.text)
 
     elif in_payload["type"] == "dialog_submission":
+        req = requests.request('GET', in_payload["response_url"])
+
         out_payload = {
         "channel": "CH02K9AEA",
         "token": str(BOT_USER_TOKEN),
