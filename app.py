@@ -51,9 +51,9 @@ def weezer():
     auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
 
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
-    #in_payload = request.get_json()
-    in_payload = json.loads(request.form.get("payload"))
-    response = bowie3.ziggy(in_payload, auth_url)
+    in_payload = request.get_json()
+    #response = bowie3.ziggy(in_payload, auth_url)
+    response = bowie2.ziggy(in_payload, auth_url)
     playlist_name = response["name"]
 
     out_payload = {
@@ -66,6 +66,22 @@ def weezer():
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
     return str(r.text)
+
+#@app.route("/slack/actions")
+#def wheatus():
+#    BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
+#    in_payload = json.loads(request.form["payload"])
+#
+#    out_payload = {
+#    "channel": "CH02K9AEA",
+#    "token": str(BOT_USER_TOKEN),
+#    "text": str(in_payload),
+#    "attachments": ""
+#    }
+#
+#    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+#    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
+#    return str(r.text)
 
 @app.route("/callback/q")
 def callback():
