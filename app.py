@@ -85,7 +85,6 @@ def wheatus():
         "callback_id": "playlist_button",
         "title": "Request a Ride",
         "submit_label": "Request",
-        "notify_on_cancel": true,
         "state": "Limo",
         "elements": [
             {
