@@ -68,6 +68,7 @@ def weezer():
 
 @app.route("/callback/q")
 def callback():
+    global playlist_name
     # Auth Step 4: Requests refresh and access tokens
     auth_token = request.args['code']
     code_payload = {
@@ -95,7 +96,9 @@ def callback():
     profile_data = json.loads(profile_response.text)
 
     authorization_header["Content-Type"] = "application/json"
-    data = {"name":"A New Playlist"}
+    data = {}
+    data["name"] = playlist_name
+    #data = {"name":"A New Playlist"}
 
     user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
     profile_response = requests.get(user_profile_api_endpoint, headers=authorization_header)
