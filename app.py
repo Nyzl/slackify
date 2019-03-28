@@ -96,7 +96,7 @@ def callback():
     authorization_header["Content-Type"] = "application/json"
     data = {}
     data["name"] = playlist_name
-    data["collaborative"] = json.dumps(True)
+    #data["collaborative"] = True
 
     user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
     profile_response = requests.get(user_profile_api_endpoint, headers=authorization_header)
