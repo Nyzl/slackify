@@ -28,12 +28,19 @@ def ziggy(payload, url):
             response["attachments"] = ""
             return response
         else:
-            response["text"] = "what do you want from me? Try calling your playlist something"
+            response["text"] = "What do you want from me? Try calling your playlist something"
             response["attachments"] = ""
             return response
 
+    elif payload["event"]["type"] == "member_joined_channel":
+        user_id = payload["event"]["username"]
+		channel_id = payload["event"]["channel"]
+		response["text"] = time + " @" + user_id + "! Welcome to the #music channel :wave: :guitar:"
+		response["attachments"] = ""
+        return response
+
     else:
         text = str(payload)
-        response["text"] = "what kind of thing was that"
+        response["text"] = "What kind of thing was that"
         response["attachments"] = ""
         return response
