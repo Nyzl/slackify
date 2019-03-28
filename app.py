@@ -164,7 +164,8 @@ def callback():
     data = {}
     data["name"] = playlist_name
     data["description"] = playlist_theme
-    #data["collaborative"] = True
+    data["collaborative"] = True
+    data["public"] = False
     payload = json.dumps(data)
 
     user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
