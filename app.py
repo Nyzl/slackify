@@ -126,5 +126,7 @@ def slack_post(response):
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
 
+    return 0
+
 if __name__ == "__main__":
     app.run()
