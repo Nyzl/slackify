@@ -36,6 +36,8 @@ auth_query_parameters = {
 }
 
 playlist_name = "holder"
+playlist_theme = "noddy"
+auth_url = ""
 
 @app.route('/',methods=['GET'])
 def deftones():
@@ -45,6 +47,7 @@ def deftones():
 def weezer():
     #SPOTIFY authentication
     global playlist_name
+    global auth_url
     url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in auth_query_parameters.items()])
     auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
 
@@ -66,6 +69,8 @@ def weezer():
 
 @app.route('/slack/actions',methods=['POST'])
 def wheatus():
+    global playlist_name
+    global playlist_theme
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = json.loads(request.form["payload"])
 
@@ -100,11 +105,13 @@ def wheatus():
 
     elif in_payload["type"] == "dialog_submission":
         req = requests.request('GET', in_payload["response_url"])
+        playlist_name = in_payload["submission"]["playlist_name_input"]
+        playlist_theme = in_payload["submission"]["theme_input"]
 
         out_payload = {
         "channel": "CH02K9AEA",
         "token": str(BOT_USER_TOKEN),
-        "text": "Hey <@" + in_payload["user"]["name"] + ">. I will create a playlist called \"" + in_payload["submission"]["playlist_name_input"] + "\"\n\n The theme will be \"" + in_payload["submission"]["theme_input"] + "\"",
+        "text": "Hey <@" + in_payload["user"]["name"] + ">. I will create a playlist called \"" + in_payload["submission"]["playlist_name_input"] + "\"\n\n The theme will be \"" + in_payload["submission"]["theme_input"] + "\"click this to confirm: "+ auth_url,
         "attachments": ""
         }
 
@@ -115,6 +122,7 @@ def wheatus():
 @app.route("/callback/q")
 def callback():
     global playlist_name
+    global playlist_theme
     # Auth Step 4: Requests refresh and access tokens
     auth_token = request.args['code']
     code_payload = {
