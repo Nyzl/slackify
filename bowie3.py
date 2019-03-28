@@ -24,7 +24,7 @@ def ziggy(payload, url):
         if bool(re.search('(?:make|create).*playlist.*called', payload["event"]["text"])):
             name = re.search('(?<=called ).*',payload["event"]["text"]).group()
             response["name"] = name
-            response["text"] = "So, ya wanna make a playlist, eh?\n\n I've made you one called " + name + "\n\nClick this link to open in Spotify" + url
+            response["text"] = "So, ya wanna make a playlist, eh?\n\n I've made you one called \"" + name + "\"\n\nClick this link to open in Spotify " + url
             response["attachments"] = ""
             return response
         else:
@@ -33,7 +33,7 @@ def ziggy(payload, url):
             return response
 
     elif payload["event"]["type"] == "member_joined_channel":
-        response["text"] = time + "! :wave: Welcome to the #music channel :guitar:"
+        response["text"] = time + "! Welcome to the #music channel :wave: :guitar:"
         response["attachments"] = ""
         return response
 
