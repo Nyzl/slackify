@@ -71,15 +71,39 @@ def wheatus():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = json.loads(request.form["payload"])
 
+    #out_payload = {
+    #"channel": "CH02K9AEA",
+    #"token": str(BOT_USER_TOKEN),
+    #"text": response["text"],
+    #"attachments": ""
+    #}
+    trigger_id = in_payload["trigger_id"]
+
     out_payload = {
-    "channel": "CH02K9AEA",
-    "token": str(BOT_USER_TOKEN),
-    "text": str(in_payload),
-    "attachments": ""
+    "trigger_id": trigger_id,
+    "dialog": {
+        "callback_id": "playlist_button",
+        "title": "Request a Ride",
+        "submit_label": "Request",
+        "notify_on_cancel": true,
+        "state": "Limo",
+        "elements": [
+            {
+                "type": "text",
+                "label": "Pickup Location",
+                "name": "loc_origin"
+            },
+            {
+                "type": "text",
+                "label": "Dropoff Location",
+                "name": "loc_destination"
+            }
+        ]
+    }
     }
 
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
+    r = requests.post("https://slack.com/api/dialog.open", headers=headers, data=json.dumps(out_payload))
     return str(r.text)
 
 @app.route("/callback/q")
