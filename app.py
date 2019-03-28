@@ -162,6 +162,7 @@ def callback():
 
     authorization_header["Content-Type"] = "application/json"
     data = {}
+
     data["name"] = "#music " + playlist_name
     data["description"] = playlist_theme
     data["collaborative"] = True
@@ -172,6 +173,7 @@ def callback():
     profile_response = requests.get(user_profile_api_endpoint, headers=authorization_header)
     profile_data = json.loads(profile_response.text)
     playlist_api_endpoint = "{}/playlists".format(profile_data["href"])
+
     playlists_response = requests.post(playlist_api_endpoint, headers=authorization_header, data=payload)
     playlist_data = playlists_response.json()
 
@@ -197,6 +199,7 @@ def slack_post(response):
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
 
     return "you can close this now"
+
 
 
 if __name__ == "__main__":
