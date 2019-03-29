@@ -202,25 +202,5 @@ def slack_post(response):
 
     return "you can close this now"
 
-def sendMessage(msg):
-    BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
-
-    payload = {
-        "channel": "CH02K9AEA",
-        "token": str(BOT_USER_TOKEN),
-        "text": msg,
-        "attachments": ""
-    }
-
-    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
-
 if __name__ == "__main__":
     app.run()
-
-    msg = "Hello"
-    schedule.every(60).seconds.do(lambda: sendMessage(slack_client, msg))
-
-    while True:
-        schedule.run_pending()
-        time.sleep(5)
