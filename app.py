@@ -57,7 +57,7 @@ def weezer():
     #playlist_name = response["name"]
 
     out_payload = {
-    "channel": "C0B6CHKSL",
+    "channel": "CH02K9AEA",
     "token": str(BOT_USER_TOKEN),
     "text": response["text"],
     "attachments": response["attachments"]
@@ -109,7 +109,7 @@ def wheatus():
         playlist_theme = in_payload["submission"]["theme_input"]
 
         out_payload = {
-        "channel": "C0B6CHKSL",
+        "channel": "CH02K9AEA",
         "token": str(BOT_USER_TOKEN),
         "text": "Hey <@" + in_payload["user"]["name"] + ">. I'm creating a playlist called \"" + in_payload["submission"]["playlist_name_input"] + "\"",
         "attachments": [
@@ -189,7 +189,7 @@ def slack_post(response):
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
 
     payload = {
-    "channel": "C0B6CHKSL",
+    "channel": "CH02K9AEA",
     "token": str(BOT_USER_TOKEN),
     "text": response["text"],
     "attachments": response["attachments"]
