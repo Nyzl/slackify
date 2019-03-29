@@ -206,7 +206,7 @@ def sendMessage(msg):
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
 
     updateMsg = {
-        "channel": "C0B6CHKSL",
+        "channel": "CH02K9AEA",
         "token": str(BOT_USER_TOKEN),
         "text": msg,
         "attachments": ""
@@ -223,4 +223,4 @@ if __name__ == "__main__":
 
     while True:
         schedule.run_pending()
-        time.sleep(5) 
+        time.sleep(5)
