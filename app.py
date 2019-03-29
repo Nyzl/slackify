@@ -1,6 +1,8 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
 import requests,os,json,base64,urllib
 import bowie,bowie2,bowie3
+import datetime
+import random
 
 app = Flask(__name__)
 app.vars={}
@@ -66,6 +68,26 @@ def weezer():
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
     return str(r.text)
+
+@app.route('/slack/random',methods=['POST'])
+def reminder():
+    BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
+
+    # work out what time of day it is
+    currentTime = datetime.datetime.now()
+    currentTime.hour
+    0
+    if currentTime.hour == 10:
+        out_payload = {
+        "channel": "CH02K9AEA",
+        "token": str(BOT_USER_TOKEN),
+        "text": "Happy Friday! What's the theme going to be today?",
+        "attachments": ""
+        }
+
+        headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+        r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
+        return str(r.text)
 
 @app.route('/slack/actions',methods=['POST'])
 def wheatus():
