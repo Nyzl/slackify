@@ -1,8 +1,11 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
 import requests,os,json,base64,urllib
 import bowie,bowie2,bowie3
-import datetime
-import random
+import time
+import logging
+from slackclient import SlackClient
+
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 app.vars={}
@@ -70,24 +73,35 @@ def weezer():
     return str(r.text)
 
 @app.route('/slack/random',methods=['POST'])
-def reminder():
-    BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
+def sendMessage(slack_client, msg):
+    # make the POST request through the python slack client
+    updateMsg = slack_client.api_call(
+        "chat.postMessage",
+        channel='#firebreak-music',
+        text=msg
+    )
 
-    # work out what time of day it is
-    currentTime = datetime.datetime.now()
-    currentTime.hour
-    0
-    if currentTime.hour == 10:
-        out_payload = {
-        "channel": "CH02K9AEA",
-        "token": str(BOT_USER_TOKEN),
-        "text": "Happy Friday! What's the theme going to be today?",
-        "attachments": ""
-        }
+    # check if the request was a success
+    if updateMsg['ok'] is not True:
+        logging.error(updateMsg)
+    else:
+        logging.debug(updateMsg)
 
-        headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-        r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
-        return str(r.text)
+    if __name__ == "__main__":
+        BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
+        slack_client = SlackClient(BOT_USER_TOKEN)
+        logging.debug("authorized slack client")
+
+        # # For testing
+        msg = "Good Morning!"
+        schedule.every(60).seconds.do(lambda: sendMessage(slack_client, msg))
+
+        # schedule.every().monday.at("13:15").do(lambda: sendMessage(slack_client, msg))
+        logging.info("entering loop")
+
+        while True:
+            schedule.run_pending()
+            time.sleep(5) # sleep for 5 seconds between checks on the scheduler
 
 @app.route('/slack/actions',methods=['POST'])
 def wheatus():
