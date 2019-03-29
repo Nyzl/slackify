@@ -45,13 +45,8 @@ def ziggy(payload, url):
                 }
             ]
             return response
-        elif bool(re.search('(?:hello|hi|hey|morning)', payload["event"]["text"])):
-            response["text"] = time + "! What's up?",
-            response["attachments"] = ""
-
-            return response
         else:
-            response["text"] = "What do you want from me, eh?"
+            response["text"] = time + "! What's up?"
 
             return response
 
