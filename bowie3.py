@@ -48,6 +48,8 @@ def ziggy(payload, url):
         elif bool(re.search('(?:hello|hi|hey)', payload["event"]["text"])):
             response["text"] = time + "<@" + payload["user"]["name"] + ">! What's up?",
             response["attachments"] = ""
+
+            return response
         else:
             response["text"] = "What do you want from me, eh?"
 
