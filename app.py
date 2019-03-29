@@ -205,7 +205,7 @@ def slack_post(response):
 def sendMessage(msg):
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
 
-    updateMsg = {
+    payload = {
         "channel": "CH02K9AEA",
         "token": str(BOT_USER_TOKEN),
         "text": msg,
