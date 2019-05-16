@@ -1,6 +1,8 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
 import requests,os,json,base64,urllib
 import bowie,bowie2,bowie3
+import datetime
+import random
 
 app = Flask(__name__)
 app.vars={}
@@ -57,7 +59,7 @@ def weezer():
     #playlist_name = response["name"]
 
     out_payload = {
-    "channel": "CH02K9AEA",
+    "channel": "C0B6CHKSL",
     "token": str(BOT_USER_TOKEN),
     "text": response["text"],
     "attachments": response["attachments"]
@@ -87,7 +89,7 @@ def wheatus():
             "elements": [
                 {
                     "type": "text",
-                    "label": "Playlist name, don't worry, I'll add '#music' to the playlist name",
+                    "label": "Playlist name",
                     "name": "playlist_name_input"
                 },
                 {
@@ -109,7 +111,7 @@ def wheatus():
         playlist_theme = in_payload["submission"]["theme_input"]
 
         out_payload = {
-        "channel": "CH02K9AEA",
+        "channel": "C0B6CHKSL",
         "token": str(BOT_USER_TOKEN),
         "text": "Hey <@" + in_payload["user"]["name"] + ">. I'm creating a playlist called \"" + in_payload["submission"]["playlist_name_input"] + "\"",
         "attachments": [
@@ -189,7 +191,7 @@ def slack_post(response):
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
 
     payload = {
-    "channel": "CH02K9AEA",
+    "channel": "C0B6CHKSL",
     "token": str(BOT_USER_TOKEN),
     "text": response["text"],
     "attachments": response["attachments"]
@@ -199,8 +201,6 @@ def slack_post(response):
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
 
     return "you can close this now"
-
-
 
 if __name__ == "__main__":
     app.run()

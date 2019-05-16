@@ -46,7 +46,7 @@ def ziggy(payload, url):
             ]
             return response
         else:
-            response["text"] = "What do you want from me, eh?"
+            response["text"] = time + "! What's up?"
 
             return response
 
