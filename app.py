@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
 import requests,os,json,base64,urllib
-import bowie,bowie2,bowie3
+import bowie3
 import datetime
 import random
 
