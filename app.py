@@ -53,6 +53,7 @@ def weezer():
     #SPOTIFY authentication
     global playlist_name
     global auth_url
+    global CHANNEL_ID
     url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in auth_query_parameters.items()])
     auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
 
@@ -60,7 +61,7 @@ def weezer():
     in_payload = request.get_json()
     response = bowie3.ziggy(in_payload, auth_url)
     #playlist_name = response["name"]
-    global CHANNEL_ID = in_payload["event"]["channel"]
+    CHANNEL_ID = in_payload["event"]["channel"]
 
     out_payload = {
     "channel": CHANNEL_ID,
@@ -77,9 +78,10 @@ def weezer():
 def wheatus():
     global playlist_name
     global playlist_theme
+    global CHANNEL_ID
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = json.loads(request.form["payload"])
-    global CHANNEL_ID = in_payload["event"]["channel"]
+    CHANNEL_ID = in_payload["event"]["channel"]
 
     if in_payload["type"] == "block_actions":
         trigger_id = in_payload["trigger_id"]
@@ -141,6 +143,7 @@ def wheatus():
 def callback():
     global playlist_name
     global playlist_theme
+    global CHANNEL_ID
     # Auth Step 4: Requests refresh and access tokens
     auth_token = request.args['code']
     code_payload = {
@@ -194,6 +197,7 @@ def callback():
 
 def slack_post(response):
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
+    global CHANNEL_ID
 
     payload = {
     "channel": CHANNEL_ID,
