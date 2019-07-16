@@ -17,6 +17,9 @@ SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 SPOTIFY_API_BASE_URL = "https://api.spotify.com"
 API_VERSION = "v1"
 SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
+CHANNEL_MUSIC = "C0B6CHKSL"
+CHANNEL_DEV = "CH02K9AEA"
+CHANNEL_ID = CHANNEL_MUSIC
 
 # Server-side Parameters
 CLIENT_SIDE_URL = "http://127.0.0.1"
@@ -55,12 +58,12 @@ def weezer():
 
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = request.get_json()
-    #print (in_payload)
+    print (in_payload)
     response = bowie3.ziggy(in_payload, auth_url)
     #playlist_name = response["name"]
 
     out_payload = {
-    "channel": "C0B6CHKSL",
+    "channel": CHANNEL_ID,
     "token": str(BOT_USER_TOKEN),
     "text": response["text"],
     "attachments": response["attachments"]
@@ -112,7 +115,7 @@ def wheatus():
         playlist_theme = in_payload["submission"]["theme_input"]
 
         out_payload = {
-        "channel": "C0B6CHKSL",
+        "channel": CHANNEL_ID,
         "token": str(BOT_USER_TOKEN),
         "text": "Hey <@" + in_payload["user"]["name"] + ">. I'm creating a playlist called \"" + in_payload["submission"]["playlist_name_input"] + "\"",
         "attachments": [
@@ -192,7 +195,7 @@ def slack_post(response):
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
 
     payload = {
-    "channel": "C0B6CHKSL",
+    "channel": CHANNEL_ID,
     "token": str(BOT_USER_TOKEN),
     "text": response["text"],
     "attachments": response["attachments"]
