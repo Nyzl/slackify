@@ -55,6 +55,7 @@ def weezer():
 
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = request.get_json()
+    #print (in_payload)
     response = bowie3.ziggy(in_payload, auth_url)
     #playlist_name = response["name"]
 
