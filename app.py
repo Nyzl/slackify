@@ -60,7 +60,6 @@ def weezer():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = request.get_json()
     response = bowie3.ziggy(in_payload, auth_url)
-    #playlist_name = response["name"]
     CHANNEL_ID = in_payload["event"]["channel"]
 
     out_payload = {
@@ -72,7 +71,8 @@ def weezer():
 
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
-    return str(r.text)
+    #return str(r.text)
+    return "goose"
 
 @app.route('/slack/actions',methods=['POST'])
 def wheatus():
