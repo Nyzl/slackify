@@ -20,7 +20,7 @@ else:
 
 def ziggy(payload, url):
     response = {"text":"","attachments":""}
-    if payload["type"] == "event_callback" and payload["event"]["type"] == "app_mention":
+    if payload["event"]["type"] == "app_mention":
 
         if bool(re.search('(?:make|create|haz).*playlist', payload["event"]["text"])):
             response["text"] = "So, ya wanna make a playlist, eh?"
