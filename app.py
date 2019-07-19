@@ -81,7 +81,8 @@ def wheatus():
     global CHANNEL_ID
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = json.loads(request.form["payload"])
-    CHANNEL_ID = in_payload["event"]["channel"]
+    #CHANNEL_ID = in_payload["event"]["channel"]
+    print(in_payload)
 
     if in_payload["type"] == "block_actions":
         trigger_id = in_payload["trigger_id"]
