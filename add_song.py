@@ -11,7 +11,7 @@ def addit(message):
     # Auth Step 4: Requests refresh and access tokens
     CLIENT_ID = os.environ['SP_CLIENT_ID']
     CLIENT_SECRET = os.environ['SP_CLIENT_SECRET']
-    
+
     SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
     SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
     SPOTIFY_API_BASE_URL = "https://api.spotify.com"
@@ -25,7 +25,7 @@ def addit(message):
     CLIENT_SIDE_URL = "http://127.0.0.1"
     SERVER_SIDE_URL = "https://slackifybot.herokuapp.com"
     PORT = 8080
-    REDIRECT_URI = "{}/callback/q".format(SERVER_SIDE_URL)
+    REDIRECT_URI = "{}/callback/r".format(SERVER_SIDE_URL)
     SCOPE = "playlist-modify-public playlist-modify-private"
     STATE = ""
     SHOW_DIALOG_bool = True
@@ -44,6 +44,27 @@ def addit(message):
     auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
     SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 
+    # Auth Step 4: Requests refresh and access tokens
+    @app.route("/callback/r")
+
+    auth_token = request.args['code']
+    print(request)
+    code_payload = {
+        "grant_type": "authorization_code",
+        "code": str(auth_token),
+        "redirect_uri": REDIRECT_URI
+    }
+    data = "{}:{}".format(CLIENT_ID, CLIENT_SECRET)
+    base64encoded = base64.b64encode(data.encode())
+    headers = {"Authorization": "Basic {}".format(base64encoded.decode())}
+    post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload, headers=headers)
+
+    #get token from Spotify response
+    response_data = json.loads(post_request.text)
+    access_token = response_data["access_token"]
+    refresh_token = response_data["refresh_token"]
+    token_type = response_data["token_type"]
+    expires_in = response_data["expires_in"]
 
     # Auth Step 6: Use the access token to access Spotify API and search
     authorization_header = {"Authorization":"Bearer {}".format(access_token)}

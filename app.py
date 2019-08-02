@@ -147,6 +147,7 @@ def callback():
     global CHANNEL_ID
     # Auth Step 4: Requests refresh and access tokens
     auth_token = request.args['code']
+    print(request)
     code_payload = {
         "grant_type": "authorization_code",
         "code": str(auth_token),
