@@ -9,25 +9,19 @@ def addit(message):
     song = song_search.group(0)
     #do all the spotify authentication stuff
     # Auth Step 4: Requests refresh and access tokens
-    SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
-    auth_token = request.args['code']
-    print(auth_token)
-    code_payload = {
-        "grant_type": "authorization_code",
-        "code": str(auth_token),
-        "redirect_uri": REDIRECT_URI
+    auth_query_parameters = {
+        "response_type": "code",
+        "redirect_uri": REDIRECT_URI,
+        "scope": SCOPE,
+        # "state": STATE,
+        # "show_dialog": SHOW_DIALOG_str,
+        "client_id": CLIENT_ID
     }
-    data = "{}:{}".format(CLIENT_ID, CLIENT_SECRET)
-    base64encoded = base64.b64encode(data.encode())
-    headers = {"Authorization": "Basic {}".format(base64encoded.decode())}
-    post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload, headers=headers)
+    SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
+    url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in auth_query_parameters.items()])
+    auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
+    SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 
-    # Auth Step 5: Tokens are Returned to Application
-    response_data = json.loads(post_request.text)
-    access_token = response_data["access_token"]
-    refresh_token = response_data["refresh_token"]
-    token_type = response_data["token_type"]
-    expires_in = response_data["expires_in"]
 
     # Auth Step 6: Use the access token to access Spotify API and search
     authorization_header = {"Authorization":"Bearer {}".format(access_token)}
