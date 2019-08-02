@@ -1,5 +1,6 @@
 import re
 import requests,os,json,base64,urllib
+from flask import request
 
 def addit(message):
 
