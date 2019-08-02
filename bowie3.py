@@ -5,6 +5,7 @@ from urllib.request import urlopen
 import re
 import datetime
 import random
+import add_song
 
 # work out what time of day it is
 currentTime = datetime.datetime.now()
@@ -44,6 +45,10 @@ def ziggy(payload, url):
                     ]
                 }
             ]
+            return response
+            # if someone tries to add a song
+        elif bool(re.search('(?:add)', payload["event"]["text"])):
+            response["text"] = "I've added " + add_song.addit(payload["event"]["text"]) + " to the playlist."
             return response
         else:
             response["text"] = time + "! What's up?"
