@@ -49,7 +49,8 @@ def ziggy(payload, url):
             # if someone tries to add a song
         elif bool(re.search('(?:add)', payload["event"]["text"])):
             #print(payload["event"]["text"])
-            response["text"] = "I've added " + add_song.addit(payload["event"]["text"]) + " to the playlist."
+            song = add_song.addit(payload["event"]["text"])
+            response["text"] = "I've added " + song + " to the playlist."
             print(response["text"])
             return response
         else:

@@ -9,6 +9,15 @@ def addit(message):
     song = song_search.group(0)
     #do all the spotify authentication stuff
     # Auth Step 4: Requests refresh and access tokens
+    CLIENT_SIDE_URL = "http://127.0.0.1"
+    SERVER_SIDE_URL = "https://slackifybot.herokuapp.com"
+    PORT = 8080
+    REDIRECT_URI = "{}/callback/q".format(SERVER_SIDE_URL)
+    SCOPE = "playlist-modify-public playlist-modify-private"
+    STATE = ""
+    SHOW_DIALOG_bool = True
+    SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
+
     auth_query_parameters = {
         "response_type": "code",
         "redirect_uri": REDIRECT_URI,
