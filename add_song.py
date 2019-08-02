@@ -9,6 +9,9 @@ def addit(message):
     song = song_search.group(0)
     #do all the spotify authentication stuff
     # Auth Step 4: Requests refresh and access tokens
+    CLIENT_ID = os.environ['SP_CLIENT_ID']
+    CLIENT_SECRET = os.environ['SP_CLIENT_SECRET']
+    
     SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
     SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
     SPOTIFY_API_BASE_URL = "https://api.spotify.com"
@@ -16,7 +19,7 @@ def addit(message):
     SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
     CHANNEL_MUSIC = "C0B6CHKSL"
     CHANNEL_DEV = "CH02K9AEA"
-    
+
 
 
     CLIENT_SIDE_URL = "http://127.0.0.1"
