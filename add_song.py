@@ -11,6 +11,7 @@ def addit(message):
     # Auth Step 4: Requests refresh and access tokens
     SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
     auth_token = request.args['code']
+    print(auth_token)
     code_payload = {
         "grant_type": "authorization_code",
         "code": str(auth_token),
