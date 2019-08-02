@@ -6,7 +6,7 @@ def addit(message):
 
     #what's the song we want to add
     song = re.search(r'(?<=add).*$', message)
-
+    print(song)
     #do all the spotify authentication stuff
     # Auth Step 4: Requests refresh and access tokens
     SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
