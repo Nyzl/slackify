@@ -9,6 +9,16 @@ def addit(message):
     song = song_search.group(0)
     #do all the spotify authentication stuff
     # Auth Step 4: Requests refresh and access tokens
+    SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
+    SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
+    SPOTIFY_API_BASE_URL = "https://api.spotify.com"
+    API_VERSION = "v1"
+    SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
+    CHANNEL_MUSIC = "C0B6CHKSL"
+    CHANNEL_DEV = "CH02K9AEA"
+    CHANNEL_ID = CHANNEL_DEV
+
+
     CLIENT_SIDE_URL = "http://127.0.0.1"
     SERVER_SIDE_URL = "https://slackifybot.herokuapp.com"
     PORT = 8080
