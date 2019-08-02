@@ -16,7 +16,7 @@ def addit(message):
     SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
     CHANNEL_MUSIC = "C0B6CHKSL"
     CHANNEL_DEV = "CH02K9AEA"
-    CHANNEL_ID = CHANNEL_DEV
+    
 
 
     CLIENT_SIDE_URL = "http://127.0.0.1"
