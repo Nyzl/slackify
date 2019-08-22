@@ -11,13 +11,13 @@ def addit(message):
     print(song)
 
     # Auth Step 6: access Spotify API and search
-
-    search_result = client.Spotify.search(song, limit=1, offset=0, type='track', market=None)
+    spotify = client.Spotify
+    search_result = spotify.search(song, limit=1, offset=0, type='track', market=None)
 
      #add the result of the search to the playlist
 
     songs_to_add = search_result["tracks"]["items"]["uri"]
 
-    add_the_song = client.Spotify.user_playlist_add_tracks(app.CLIENT_ID, app.playlist_data["external_urls"], songs_to_add, position=None)
+    add_the_song = spotify.user_playlist_add_tracks(app.CLIENT_ID, app.playlist_data["external_urls"], songs_to_add, position=None)
 
     return search_result["name"]
