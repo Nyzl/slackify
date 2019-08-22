@@ -1,5 +1,6 @@
 import re
 import requests,os,json,base64,urllib
+import client
 from flask import request
 
 def addit(message):
@@ -17,6 +18,6 @@ def addit(message):
 
     songs_to_add = search_result["tracks"]["items"]["uri"]
 
-    add_the_song = user_playlist_add_tracks(app.CLIENT_ID, app.playlist_data["external_urls"], songs_to_add, position=None)
+    add_the_song = client.user_playlist_add_tracks(app.CLIENT_ID, app.playlist_data["external_urls"], songs_to_add, position=None)
 
     return search_result["name"]
