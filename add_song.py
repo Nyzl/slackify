@@ -12,7 +12,7 @@ def addit(message):
 
     # Auth Step 6: access Spotify API and search
     spotify = client.Spotify
-    search_result = spotify.search(song, limit=1, offset=0, type='track', market=None)
+    search_result = spotify.search(q=song, limit=1, offset=0, type='track', market=None)
 
      #add the result of the search to the playlist
 
