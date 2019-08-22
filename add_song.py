@@ -8,7 +8,7 @@ def addit(message):
     #what's the song we want to add
     song_search = re.search(r'(?<=add).*$', message)
     song = song_search.group(0)
-print(song)
+    print(song)
 
     # Auth Step 6: access Spotify API and search
 
