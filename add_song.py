@@ -21,6 +21,7 @@ def addit(message):
      #add the result of the search to the playlist
 
     songs_to_add = search_result["tracks"]["items"]["uri"]
+    print(search_result)
 
     add_the_song = spotify.user_playlist_add_tracks(app.CLIENT_ID, app.playlist_data["external_urls"], songs_to_add, position=None)
 
