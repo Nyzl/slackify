@@ -3,6 +3,7 @@ import requests,os,json,base64,urllib
 import spotipy
 from flask import request
 from spotipy.oauth2 import SpotifyClientCredentials
+import app
 
 def addit(message):
 
