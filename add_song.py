@@ -1,7 +1,8 @@
 import re
 import requests,os,json,base64,urllib
-import client
+import spotipy
 from flask import request
+from spotipy.oauth2 import SpotifyClientCredentials
 
 def addit(message):
 
@@ -11,8 +12,9 @@ def addit(message):
     print(song)
 
     # Auth Step 6: access Spotify API and search
-    spotify = client.Spotify()
-    initialise = spotify._auth_headers()
+
+    client_credentials_manager = SpotifyClientCredentials(client_id=app.CLIENT_ID, client_secret=app.CLIENT_SECRET)
+    spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     search_result = spotify.search(q=song, limit=1, offset=0, type='track', market=None)
 
      #add the result of the search to the playlist
