@@ -40,6 +40,7 @@ auth_query_parameters = {
     "client_id": CLIENT_ID
 }
 
+playlist_data = {}
 playlist_name = "holder"
 playlist_theme = "noddy"
 auth_url = ""
@@ -145,6 +146,7 @@ def callback():
     global playlist_name
     global playlist_theme
     global CHANNEL_ID
+    global playlist_data
     # Auth Step 4: Requests refresh and access tokens
     auth_token = request.args['code']
     print(request)
