@@ -10,7 +10,6 @@ def addit(message):
     #what's the song we want to add
     song_search = re.search(r'(?<=add).*$', message)
     song = song_search.group(0)
-    print(song)
 
     # Auth Step 6: access Spotify API and search
 
@@ -21,6 +20,8 @@ def addit(message):
      #add the result of the search to the playlist
 
     songs_to_add = search_result["tracks"]["items"][0]["uri"]
+
+    print(app.playlist_data)
 
     add_the_song = spotify.user_playlist_add_tracks(app.CLIENT_ID, app.playlist_data["external_urls"], songs_to_add, position=None)
 

@@ -83,7 +83,6 @@ def wheatus():
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = json.loads(request.form["payload"])
     #CHANNEL_ID = in_payload["event"]["channel"]
-    print(in_payload)
 
     if in_payload["type"] == "block_actions":
         trigger_id = in_payload["trigger_id"]
@@ -149,7 +148,6 @@ def callback():
     global playlist_data
     # Auth Step 4: Requests refresh and access tokens
     auth_token = request.args['code']
-    print(request)
     code_payload = {
         "grant_type": "authorization_code",
         "code": str(auth_token),
