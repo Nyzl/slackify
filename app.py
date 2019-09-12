@@ -17,16 +17,13 @@ SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 SPOTIFY_API_BASE_URL = "https://api.spotify.com"
 API_VERSION = "v1"
 SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
-CHANNEL_MUSIC = "C0B6CHKSL"
-CHANNEL_DEV = "CH02K9AEA"
-CHANNEL_ID = CHANNEL_DEV
 
 # Server-side Parameters
 CLIENT_SIDE_URL = "http://127.0.0.1"
 SERVER_SIDE_URL = "https://slackifybot.herokuapp.com"
 PORT = 8080
 REDIRECT_URI = "{}/callback/q".format(SERVER_SIDE_URL)
-SCOPE = "playlist-modify-public playlist-modify-private"
+SCOPE = "playlist-modify-public playlist-modify-private playlist-read-private playlist-read-collaborative"
 STATE = ""
 SHOW_DIALOG_bool = True
 SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
@@ -35,8 +32,6 @@ auth_query_parameters = {
     "response_type": "code",
     "redirect_uri": REDIRECT_URI,
     "scope": SCOPE,
-    # "state": STATE,
-    # "show_dialog": SHOW_DIALOG_str,
     "client_id": CLIENT_ID
 }
 
@@ -72,7 +67,7 @@ def weezer():
 
     headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
     r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
-    #return str(r.text)
+
     return make_response("", 200)
 
 @app.route('/slack/actions',methods=['POST'])
@@ -196,6 +191,10 @@ def callback():
     slack_post(response)
 
     return "All done. I've posted the link to the playlist in the #music channel. You can close this window now."
+
+@app.route("/test/q")
+def testing():
+    return "hello daniel"
 
 def slack_post(response):
     BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
