@@ -23,6 +23,6 @@ def addit(message):
 
     print(app.playlist_data)
 
-    add_the_song = spotify.user_playlist_add_tracks(app.CLIENT_ID, app.playlist_data["external_urls"], songs_to_add, position=None)
+    add_the_song = spotify.user_playlist_add_tracks(app.CLIENT_ID, app.playlist_data["id"], songs_to_add, position=None)
 
     return search_result["name"]
