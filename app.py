@@ -34,10 +34,12 @@ auth_query_parameters = {
     "client_id": CLIENT_ID
 }
 
+url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in auth_query_parameters.items()])
+auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
+
 playlist_data = {}
 playlist_name = "holder"
 playlist_theme = "noddy"
-auth_url = ""
 
 @app.route('/',methods=['GET'])
 def deftones():
@@ -49,8 +51,8 @@ def weezer():
     global playlist_name
     global auth_url
     global CHANNEL_ID
-    url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in auth_query_parameters.items()])
-    auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
+    #url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in auth_query_parameters.items()])
+    #auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
 
     in_payload = request.get_json()
     response = bowie3.ziggy(in_payload)
