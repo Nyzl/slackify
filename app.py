@@ -56,6 +56,8 @@ def weezer():
     response = bowie3.ziggy(in_payload, auth_url)
     CHANNEL_ID = in_payload["event"]["channel"]
 
+    print(in_payload)
+
     out_payload = {
     "channel": CHANNEL_ID,
     "token": str(BOT_USER_TOKEN),

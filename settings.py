@@ -21,3 +21,14 @@ playlist_attachement = [
                     ]
                 }
             ]
+
+mention_text_list = [
+    "hi, it's a wonderful day to be alive isn't it",
+    "i wonder what this weeks playlist theme will be",
+    "did you know, my first word was 'goose'",
+    "don't worry, i'm not sentient, these are just words someone told me to say....or did they!",
+    "What's up?"
+    ]
+
+num = random.randrange(1,len(text))
+mention_text = mention_text_list[num-1]
