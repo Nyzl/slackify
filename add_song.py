@@ -21,8 +21,6 @@ def addit(message):
 
     songs_to_add = search_result["tracks"]["items"][0]["uri"]
 
-    print(app.playlist_data)
-
     add_the_song = spotify.user_playlist_add_tracks(app.CLIENT_ID, app.playlist_data["id"], songs_to_add, position=None)
 
     return search_result["name"]
