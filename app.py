@@ -88,6 +88,10 @@ def wheatus():
         }
         }
 
+        headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+        r = requests.post("https://slack.com/api/dialog.open", headers=headers, data=json.dumps(out_payload))
+        return make_response("", 200)
+
     elif in_payload["type"] == "dialog_submission":
         req = requests.request('GET', in_payload["response_url"])
         playlist_name = in_payload["submission"]["playlist_name_input"]
@@ -112,9 +116,9 @@ def wheatus():
         }
 
 
-    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
-    return make_response("", 200)
+        headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+        r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
+        return make_response("", 200)
 
 @app.route("/callback/q")
 def callback():
