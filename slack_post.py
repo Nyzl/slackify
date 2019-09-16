@@ -1,7 +1,7 @@
 import requests
 import app
 
-def slack_post(response):
+def post(response):
     payload = {
     "channel": CHANNEL_ID,
     "token": str(BOT_USER_TOKEN),

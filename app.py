@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
 import requests,os,json,base64,urllib,datetime,random
-import bowie3,slack_settings
+import bowie3,slack_settings,slack_post
 
 app = Flask(__name__)
 app.vars={}
@@ -179,7 +179,7 @@ def callback():
 
     slack_response = {"text":"","attachments":""}
     slack_response["text"] = "I've made a playlist called \"" + playlist_name + "\". The theme is \"" + playlist_theme + "\"\n\nHere's the link: " + playlist_url
-    slack_post.slack_post(slack_response)
+    slack_post.post(slack_response)
 
     return "All done. I've posted the link to the playlist in the #music channel. You can close this window now."
 
@@ -187,7 +187,7 @@ def callback():
 def testing():
     return "hello daniel"
 
-def slack_post(response):
+def slacki_post(response):
     payload = {
     "channel": CHANNEL_ID,
     "token": str(BOT_USER_TOKEN),
