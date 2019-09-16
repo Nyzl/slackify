@@ -1,9 +1,11 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
-import requests,os,json,base64,urllib,datetime,random
+import requests,os,json,base64,urllib,datetime,random,sys
 import bowie3,slack_settings,slack_post
 
 app = Flask(__name__)
 app.vars={}
+
+slack_message_token = []
 
 # Spotify Client Keys
 CLIENT_ID = os.environ['SP_CLIENT_ID']
@@ -34,6 +36,7 @@ auth_query_parameters = {
     "client_id": CLIENT_ID
 }
 
+
 url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in auth_query_parameters.items()])
 auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
 
@@ -48,11 +51,18 @@ def deftones():
 @app.route('/slack',methods=['POST'])
 def weezer():
     global CHANNEL_ID
+    global slack_message_token
     in_payload = request.get_json()
-    response = bowie3.ziggy(in_payload)
     CHANNEL_ID = in_payload["event"]["channel"]
+    token = in_payload["token"]
 
-    print(in_payload)
+    #response = bowie3.ziggy(in_payload)
+
+    if token in slack_message_token:
+        sys.exit()
+    else:
+        response = bowie3.ziggy(in_payload)
+        slack_message_token.append(token)
 
     slack_post.post(response)
     return make_response("", 200)
