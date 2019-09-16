@@ -1,4 +1,4 @@
-import os
+import os,random
 
 playlist_text = "So, ya wanna make a playlist, eh?"
 playlist_attachement = [
