@@ -48,23 +48,13 @@ def deftones():
 @app.route('/slack',methods=['POST'])
 def weezer():
     global CHANNEL_ID
-
     in_payload = request.get_json()
     response = bowie3.ziggy(in_payload)
     CHANNEL_ID = in_payload["event"]["channel"]
 
     print(in_payload)
 
-    out_payload = {
-    "channel": CHANNEL_ID,
-    "token": str(BOT_USER_TOKEN),
-    "text": response["text"],
-    "attachments": response["attachments"]
-    }
-
-    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
-
+    slack_post.post(response)
     return make_response("", 200)
 
 @app.route('/slack/actions',methods=['POST'])
@@ -98,10 +88,6 @@ def wheatus():
         }
         }
 
-        headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-        r = requests.post("https://slack.com/api/dialog.open", headers=headers, data=json.dumps(out_payload))
-        return make_response("", 200)
-
     elif in_payload["type"] == "dialog_submission":
         req = requests.request('GET', in_payload["response_url"])
         playlist_name = in_payload["submission"]["playlist_name_input"]
@@ -125,9 +111,10 @@ def wheatus():
         ]
         }
 
-        headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-        r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
-        return make_response("", 200)
+
+    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
+    return make_response("", 200)
 
 @app.route("/callback/q")
 def callback():
@@ -186,19 +173,6 @@ def callback():
 @app.route("/test/q")
 def testing():
     return "hello daniel"
-
-def slacki_post(response):
-    payload = {
-    "channel": CHANNEL_ID,
-    "token": str(BOT_USER_TOKEN),
-    "text": response["text"],
-    "attachments": response["attachments"]
-    }
-
-    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
-
-    return "you can close this now"
 
 if __name__ == "__main__":
     app.run()
