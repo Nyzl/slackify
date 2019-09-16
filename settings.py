@@ -30,5 +30,5 @@ mention_text_list = [
     "What's up?"
     ]
 
-num = random.randrange(1,len(text))
+num = random.randrange(1,len(mention_text_list))
 mention_text = mention_text_list[num-1]
