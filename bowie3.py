@@ -1,11 +1,6 @@
-import app
-import string
-import json
+import app,add_song,settings
+import string,json,re,datetime,random
 from urllib.request import urlopen
-import re
-import datetime
-import random
-import add_song
 
 # work out what time of day it is
 currentTime = datetime.datetime.now()
@@ -24,27 +19,8 @@ def ziggy(payload, url):
     if payload["event"]["type"] == "app_mention":
 
         if bool(re.search('(?:make|create|haz).*playlist', payload["event"]["text"])):
-            response["text"] = "So, ya wanna make a playlist, eh?"
-            response["attachments"] = [
-                {
-                    "blocks": [
-                        {
-                            "type": "actions",
-                            "elements": [
-                                {
-                                    "type": "button",
-                                    "text": {
-                                        "type": "plain_text",
-                                        "text": ":guitar: Let's go!"
-                                        },
-                                    "value": "create_playlist",
-                                    "action_id":"playlist_button"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+            response["text"] = settings.playlist_text
+            response["attachments"] = settings.playlist_attachement
             return response
             # if someone tries to add a song
         elif bool(re.search('(?:add)', payload["event"]["text"])):

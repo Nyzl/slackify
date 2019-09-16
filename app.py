@@ -1,8 +1,6 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
-import requests,os,json,base64,urllib
+import requests,os,json,base64,urllib,datetime,random
 import bowie3
-import datetime
-import random
 
 app = Flask(__name__)
 app.vars={}
