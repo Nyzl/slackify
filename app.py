@@ -8,6 +8,7 @@ app.vars={}
 # Spotify Client Keys
 CLIENT_ID = os.environ['SP_CLIENT_ID']
 CLIENT_SECRET = os.environ['SP_CLIENT_SECRET']
+BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
 
 # Spotify URLS
 SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
@@ -51,9 +52,8 @@ def weezer():
     url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in auth_query_parameters.items()])
     auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
 
-    BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = request.get_json()
-    response = bowie3.ziggy(in_payload, auth_url)
+    response = bowie3.ziggy(in_payload)
     CHANNEL_ID = in_payload["event"]["channel"]
 
     print(in_payload)
@@ -75,7 +75,6 @@ def wheatus():
     global playlist_name
     global playlist_theme
     global CHANNEL_ID
-    BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = json.loads(request.form["payload"])
     #CHANNEL_ID = in_payload["event"]["channel"]
 
