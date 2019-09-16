@@ -1,4 +1,5 @@
-import app,add_song,settings
+#this builds the response to send to Slack
+import app,add_song,slack_settings
 import string,json,re,datetime,random
 from urllib.request import urlopen
 
@@ -19,8 +20,8 @@ def ziggy(payload):
     if payload["event"]["type"] == "app_mention":
     #playlist creator
         if bool(re.search('(?:make|create|haz).*playlist', payload["event"]["text"])):
-            response["text"] = settings.playlist_text
-            response["attachments"] = settings.playlist_attachement
+            response["text"] = slack_settings.playlist_text
+            response["attachments"] = slack_settings.playlist_attachement
             return response
             
     #if someone tries to add a song
@@ -31,7 +32,7 @@ def ziggy(payload):
 
     #we get a mention
         else:
-            response["text"] = settings.mention_text
+            response["text"] = slack_settings.mention_text
             return response
 
     #a user is added to the channel

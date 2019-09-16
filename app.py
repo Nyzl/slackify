@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
 import requests,os,json,base64,urllib,datetime,random
-import bowie3
+import bowie3,slack_settings
 
 app = Flask(__name__)
 app.vars={}
@@ -47,12 +47,7 @@ def deftones():
 
 @app.route('/slack',methods=['POST'])
 def weezer():
-    #SPOTIFY authentication
-    global playlist_name
-    global auth_url
     global CHANNEL_ID
-    #url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in auth_query_parameters.items()])
-    #auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
 
     in_payload = request.get_json()
     response = bowie3.ziggy(in_payload)
@@ -76,9 +71,7 @@ def weezer():
 def wheatus():
     global playlist_name
     global playlist_theme
-    global CHANNEL_ID
     in_payload = json.loads(request.form["payload"])
-    #CHANNEL_ID = in_payload["event"]["channel"]
 
     if in_payload["type"] == "block_actions":
         trigger_id = in_payload["trigger_id"]
@@ -138,9 +131,6 @@ def wheatus():
 
 @app.route("/callback/q")
 def callback():
-    global playlist_name
-    global playlist_theme
-    global CHANNEL_ID
     global playlist_data
     # Auth Step 4: Requests refresh and access tokens
     auth_token = request.args['code']
@@ -187,9 +177,9 @@ def callback():
 
     playlist_url = playlist_data["external_urls"]["spotify"]
 
-    response = {"text":"","attachments":""}
-    response["text"] = "I've made a playlist called \"" + playlist_name + "\". The theme is \"" + playlist_theme + "\"\n\nHere's the link: " + playlist_url
-    slack_post(response)
+    slack_response = {"text":"","attachments":""}
+    slack_response["text"] = "I've made a playlist called \"" + playlist_name + "\". The theme is \"" + playlist_theme + "\"\n\nHere's the link: " + playlist_url
+    slack_post.slack_post(slack_response)
 
     return "All done. I've posted the link to the playlist in the #music channel. You can close this window now."
 
@@ -198,9 +188,6 @@ def testing():
     return "hello daniel"
 
 def slack_post(response):
-    BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
-    global CHANNEL_ID
-
     payload = {
     "channel": CHANNEL_ID,
     "token": str(BOT_USER_TOKEN),

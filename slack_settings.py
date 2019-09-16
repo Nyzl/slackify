@@ -1,3 +1,4 @@
+#all the json elements Slack wants
 import os,random
 
 playlist_text = "So, ya wanna make a playlist, eh?"
