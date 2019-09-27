@@ -54,7 +54,7 @@ def weezer():
     global slack_message_token
     in_payload = request.get_json()
     CHANNEL_ID = in_payload["event"]["channel"]
-    token = in_payload["client_msg_id"]
+    token = in_payload['event']['client_msg_id']
     print (in_payload)
 
     #response = bowie3.ziggy(in_payload)
