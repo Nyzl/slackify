@@ -24,10 +24,10 @@ playlist_attachement = [
             ]
 
 mention_text_list = [
-    "hi, it's a wonderful day to be alive isn't it",
-    "i wonder what this weeks playlist theme will be",
-    "did you know, my first word was 'goose'",
-    "don't worry, i'm not sentient, these are just words someone told me to say....or did they!",
+    "hi, it's a wonderful day to be alive isn't it. How can I help you?",
+    "I wonder what this weeks playlist theme will be? What do you think?",
+    "Did you know, my first word was 'goose'?",
+    "don't worry, i'm not sentient, these are just words someone told me to say....or did they! But that's not the point, how can I be of service?",
     "What's up?"
     ]
 

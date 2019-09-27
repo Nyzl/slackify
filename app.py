@@ -60,12 +60,13 @@ def weezer():
 
     if token in slack_message_token:
         print("duplicate message recieved")
-        return make_response("", 200)
+
     else:
         response = bowie3.ziggy(in_payload)
         slack_message_token.append(token)
-
         slack_post.post(response)
+
+    return make_response("", 200)
 
     
     
