@@ -1,5 +1,5 @@
 #this builds the response to send to Slack
-import app,add_song,slack_settings
+import app,slack_settings
 import string,json,re,datetime,random
 from urllib.request import urlopen
 
@@ -24,12 +24,6 @@ def ziggy(payload):
             response["attachments"] = slack_settings.playlist_attachement
             return response
             
-    #if someone tries to add a song
-        elif bool(re.search('(?:add)', payload["event"]["text"])):
-            song = add_song.addit(payload["event"]["text"])
-            response["text"] = "I've added " + song + " to the playlist."
-            return response
-
     #we get a mention
         else:
             response["text"] = slack_settings.mention_text

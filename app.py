@@ -59,13 +59,16 @@ def weezer():
     #response = bowie3.ziggy(in_payload)
 
     if token in slack_message_token:
-        sys.exit()
+        print("duplicate message recieved")
+        return make_response("", 200)
     else:
         response = bowie3.ziggy(in_payload)
         slack_message_token.append(token)
 
-    slack_post.post(response)
-    return make_response("", 200)
+        slack_post.post(response)
+
+    
+    
 
 @app.route('/slack/actions',methods=['POST'])
 def wheatus():
