@@ -1,10 +1,7 @@
-import app
-import string
-import json
+#this builds the response to send to Slack
+import app,slack_settings
+import string,json,re,datetime,random
 from urllib.request import urlopen
-import re
-import datetime
-import random
 
 # work out what time of day it is
 currentTime = datetime.datetime.now()
@@ -18,45 +15,27 @@ else:
   time = ("Good evening")
 
 
-def ziggy(payload, url):
+def ziggy(payload):
     response = {"text":"","attachments":""}
     if payload["event"]["type"] == "app_mention":
-
+    #playlist creator
         if bool(re.search('(?:make|create|haz).*playlist', payload["event"]["text"])):
-            response["text"] = "So, ya wanna make a playlist, eh?"
-            response["attachments"] = [
-                {
-                    "blocks": [
-                        {
-                            "type": "actions",
-                            "elements": [
-                                {
-                                    "type": "button",
-                                    "text": {
-                                        "type": "plain_text",
-                                        "text": ":guitar: Let's go!"
-                                        },
-                                    "value": "create_playlist",
-                                    "action_id":"playlist_button"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+            response["text"] = slack_settings.playlist_text
+            response["attachments"] = slack_settings.playlist_attachement
             return response
+            
+    #we get a mention
         else:
-            response["text"] = time + "! What's up?"
-
+            response["text"] = random.choice(slack_settings.mention_text_list)
             return response
 
+    #a user is added to the channel
     elif payload["event"]["type"] == "member_joined_channel":
         response["text"] = time + "! Welcome to the #music channel :wave: :guitar:"
         return response
 
+    #something weird that we are not expecting
     else:
         text = str(payload)
-
         response["text"] = "What the heck was that?"
-
         return response

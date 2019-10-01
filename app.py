@@ -1,15 +1,16 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
-import requests,os,json,base64,urllib
-import bowie3
-import datetime
-import random
+import requests,os,json,base64,urllib,datetime,random,sys
+import bowie3,slack_settings,slack_post
 
 app = Flask(__name__)
 app.vars={}
 
+slack_message_token = []
+
 # Spotify Client Keys
 CLIENT_ID = os.environ['SP_CLIENT_ID']
 CLIENT_SECRET = os.environ['SP_CLIENT_SECRET']
+BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
 
 # Spotify URLS
 SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
@@ -17,16 +18,13 @@ SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 SPOTIFY_API_BASE_URL = "https://api.spotify.com"
 API_VERSION = "v1"
 SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
-CHANNEL_MUSIC = "C0B6CHKSL"
-CHANNEL_DEV = "CH02K9AEA"
-CHANNEL_ID = CHANNEL_DEV
 
 # Server-side Parameters
 CLIENT_SIDE_URL = "http://127.0.0.1"
 SERVER_SIDE_URL = "https://slackifybot.herokuapp.com"
 PORT = 8080
 REDIRECT_URI = "{}/callback/q".format(SERVER_SIDE_URL)
-SCOPE = "playlist-modify-public playlist-modify-private"
+SCOPE = "playlist-modify-public playlist-modify-private playlist-read-private playlist-read-collaborative"
 STATE = ""
 SHOW_DIALOG_bool = True
 SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
@@ -35,14 +33,16 @@ auth_query_parameters = {
     "response_type": "code",
     "redirect_uri": REDIRECT_URI,
     "scope": SCOPE,
-    # "state": STATE,
-    # "show_dialog": SHOW_DIALOG_str,
     "client_id": CLIENT_ID
 }
 
+
+url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in auth_query_parameters.items()])
+auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
+
+playlist_data = {}
 playlist_name = "holder"
 playlist_theme = "noddy"
-auth_url = ""
 
 @app.route('/',methods=['GET'])
 def deftones():
@@ -50,39 +50,33 @@ def deftones():
 
 @app.route('/slack',methods=['POST'])
 def weezer():
-    #SPOTIFY authentication
-    global playlist_name
-    global auth_url
     global CHANNEL_ID
-    url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in auth_query_parameters.items()])
-    auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
-
-    BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
+    global slack_message_token
     in_payload = request.get_json()
-    response = bowie3.ziggy(in_payload, auth_url)
     CHANNEL_ID = in_payload["event"]["channel"]
+    token = in_payload['event']['client_msg_id']
+    print (in_payload)
 
-    out_payload = {
-    "channel": CHANNEL_ID,
-    "token": str(BOT_USER_TOKEN),
-    "text": response["text"],
-    "attachments": response["attachments"]
-    }
+    #response = bowie3.ziggy(in_payload)
 
-    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
-    #return str(r.text)
+    if token in slack_message_token:
+        print("duplicate message recieved")
+
+    else:
+        response = bowie3.ziggy(in_payload)
+        slack_message_token.append(token)
+        slack_post.post(response)
+
     return make_response("", 200)
+
+    
+    
 
 @app.route('/slack/actions',methods=['POST'])
 def wheatus():
     global playlist_name
     global playlist_theme
-    global CHANNEL_ID
-    BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
     in_payload = json.loads(request.form["payload"])
-    #CHANNEL_ID = in_payload["event"]["channel"]
-    print(in_payload)
 
     if in_payload["type"] == "block_actions":
         trigger_id = in_payload["trigger_id"]
@@ -136,15 +130,14 @@ def wheatus():
         ]
         }
 
+
         headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
         r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
         return make_response("", 200)
 
 @app.route("/callback/q")
 def callback():
-    global playlist_name
-    global playlist_theme
-    global CHANNEL_ID
+    global playlist_data
     # Auth Step 4: Requests refresh and access tokens
     auth_token = request.args['code']
     code_payload = {
@@ -190,27 +183,15 @@ def callback():
 
     playlist_url = playlist_data["external_urls"]["spotify"]
 
-    response = {"text":"","attachments":""}
-    response["text"] = "I've made a playlist called \"" + playlist_name + "\". The theme is \"" + playlist_theme + "\"\n\nHere's the link: " + playlist_url
-    slack_post(response)
+    slack_response = {"text":"","attachments":""}
+    slack_response["text"] = "I've made a playlist called \"" + playlist_name + "\". The theme is \"" + playlist_theme + "\"\n\nHere's the link: " + playlist_url
+    slack_post.post(slack_response)
 
     return "All done. I've posted the link to the playlist in the #music channel. You can close this window now."
 
-def slack_post(response):
-    BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
-    global CHANNEL_ID
-
-    payload = {
-    "channel": CHANNEL_ID,
-    "token": str(BOT_USER_TOKEN),
-    "text": response["text"],
-    "attachments": response["attachments"]
-    }
-
-    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-    r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(payload))
-
-    return "you can close this now"
+@app.route("/test/q")
+def testing():
+    return "hello daniel"
 
 if __name__ == "__main__":
     app.run()
