@@ -31,4 +31,3 @@ mention_text_list = [
     "What's up?"
     ]
 
-mention_text = random.choice(mention_text_list)

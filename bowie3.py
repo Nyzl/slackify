@@ -26,7 +26,7 @@ def ziggy(payload):
             
     #we get a mention
         else:
-            response["text"] = slack_settings.mention_text
+            response["text"] = random.choice(slack_settings.mention_text_list)
             return response
 
     #a user is added to the channel
