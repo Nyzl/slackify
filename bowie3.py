@@ -1,7 +1,6 @@
 #this builds the response to send to Slack
-import app,slack_settings
-import string,json,re,datetime,random
-from urllib.request import urlopen
+import slack_settings
+import re,datetime,random
 
 # work out what time of day it is
 currentTime = datetime.datetime.now()

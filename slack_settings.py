@@ -1,5 +1,4 @@
 #all the json elements Slack wants
-import os,random
 
 playlist_text = "So, ya wanna make a playlist, eh?"
 playlist_attachement = [
@@ -24,10 +23,11 @@ playlist_attachement = [
             ]
 
 mention_text_list = [
-    "hi, it's a wonderful day to be alive isn't it. How can I help you?",
+    "Hi, it's a wonderful day to be alive isn't it. How can I help you?",
     "I wonder what this weeks playlist theme will be? What do you think?",
     "Did you know, my first word was 'goose'?",
     "don't worry, i'm not sentient, these are just words someone told me to say....or did they! But that's not the point, how can I be of service?",
-    "What's up?"
+    "What's up?",
+    "Sup?"
     ]
 

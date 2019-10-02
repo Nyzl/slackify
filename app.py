@@ -1,10 +1,9 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
-import requests,os,json,base64,urllib,datetime,random,sys
-import bowie3,slack_settings,slack_post
+import requests,os,json,base64,urllib
+import bowie3,slack_post
 
 app = Flask(__name__)
 app.vars={}
-
 slack_message_token = []
 
 # Spotify Client Keys
@@ -48,6 +47,7 @@ playlist_theme = "noddy"
 def deftones():
         return "you GETTED me"
 
+
 @app.route('/slack',methods=['POST'])
 def weezer():
     global CHANNEL_ID
@@ -55,13 +55,9 @@ def weezer():
     in_payload = request.get_json()
     CHANNEL_ID = in_payload["event"]["channel"]
     token = in_payload['event']['client_msg_id']
-    print (in_payload)
-
-    #response = bowie3.ziggy(in_payload)
 
     if token in slack_message_token:
         print("duplicate message recieved")
-
     else:
         response = bowie3.ziggy(in_payload)
         slack_message_token.append(token)
@@ -70,8 +66,6 @@ def weezer():
     return make_response("", 200)
 
     
-    
-
 @app.route('/slack/actions',methods=['POST'])
 def wheatus():
     global playlist_name
@@ -159,11 +153,6 @@ def callback():
 
     # Auth Step 6: Use the access token to access Spotify API
     authorization_header = {"Authorization":"Bearer {}".format(access_token)}
-
-    user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
-    profile_response = requests.get(user_profile_api_endpoint, headers=authorization_header)
-    profile_data = json.loads(profile_response.text)
-
     authorization_header["Content-Type"] = "application/json"
     data = {}
 
@@ -176,11 +165,10 @@ def callback():
     user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
     profile_response = requests.get(user_profile_api_endpoint, headers=authorization_header)
     profile_data = json.loads(profile_response.text)
+    
     playlist_api_endpoint = "{}/playlists".format(profile_data["href"])
-
     playlists_response = requests.post(playlist_api_endpoint, headers=authorization_header, data=payload)
     playlist_data = playlists_response.json()
-
     playlist_url = playlist_data["external_urls"]["spotify"]
 
     slack_response = {"text":"","attachments":""}
