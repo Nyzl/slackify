@@ -28,6 +28,7 @@ mention_text_list = [
     "Did you know, my first word was 'goose'?",
     "don't worry, i'm not sentient, these are just words someone told me to say....or did they! But that's not the point, how can I be of service?",
     "What's up?",
-    "Sup?"
+    "Sup?",
+    "Every day i'm shufflin"
     ]
 
