@@ -14,7 +14,7 @@ else:
   time = ("Good evening")
 
 
-def ziggy(payload):
+def process(payload):
     response = {"text":"","attachments":""}
     if payload["event"]["type"] == "app_mention":
     #playlist creator

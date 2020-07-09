@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
 import requests,os,json,base64,urllib
-import bowie3,slack_post
+import slack_process,slack_post
 
 app = Flask(__name__)
 app.vars={}
@@ -44,12 +44,12 @@ playlist_name = "holder"
 playlist_theme = "noddy"
 
 @app.route('/',methods=['GET'])
-def deftones():
+def home():
         return "you GETTED me"
 
 
 @app.route('/slack',methods=['POST'])
-def weezer():
+def slack():
     global CHANNEL_ID
     global slack_message_token
     in_payload = request.get_json()
@@ -59,7 +59,7 @@ def weezer():
     if token in slack_message_token:
         print("duplicate message recieved")
     else:
-        response = bowie3.ziggy(in_payload)
+        response = slack_process.process(in_payload)
         slack_message_token.append(token)
         slack_post.post(response)
 
@@ -67,7 +67,7 @@ def weezer():
 
     
 @app.route('/slack/actions',methods=['POST'])
-def wheatus():
+def slack_action():
     global playlist_name
     global playlist_theme
     in_payload = json.loads(request.form["payload"])
