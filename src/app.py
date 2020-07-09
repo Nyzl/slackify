@@ -7,9 +7,9 @@ app.vars={}
 slack_message_token = []
 
 # Spotify Client Keys
-CLIENT_ID = os.environ['SP_CLIENT_ID']
-CLIENT_SECRET = os.environ['SP_CLIENT_SECRET']
-BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
+CLIENT_ID = os.environ.get('SP_CLIENT_ID', 'default')
+CLIENT_SECRET = os.environ.get('SP_CLIENT_SECRET', 'default')
+BOT_USER_TOKEN = os.environ.get('BOT_USER_TOKEN', 'default')
 
 # Spotify URLS
 SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
