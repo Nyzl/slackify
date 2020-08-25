@@ -40,3 +40,13 @@ local:
 
 pull:
 	docker pull gcr.io/${dev_project}
+
+
+a:
+	docker container run --name slacki -p 9090:8080 slackify
+
+b:
+	docker exec -it slacki /bin/bash
+
+c:
+	docker kill slacki
