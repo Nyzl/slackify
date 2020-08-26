@@ -27,11 +27,13 @@ steps:
       - '--region=europe-west4'
       - '--quiet'
       id: Deploy
+      entrypoint: gcloud
   images:
     - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
   options:
     substitutionOption: ALLOW_LOOSE
   substitutions:
+    _PROJECT_ID: slackify-main
     _SERVICE_NAME: slackify
     _DEPLOY_REGION: europe-west4
     _GCR_HOSTNAME: eu.gcr.io
