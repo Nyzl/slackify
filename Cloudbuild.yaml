@@ -27,7 +27,7 @@ steps:
       - '--region=$_DEPLOY_REGION'
       - '--quiet'
       id: Deploy
-      entrypoint: gcloud
+      #entrypoint: gcloud
   images:
     - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
   options:
