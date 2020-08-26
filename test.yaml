@@ -1,0 +1,29 @@
+steps:
+    - name: ubuntu
+      id: generate-image-tag
+      entrypoint: bash
+      args:
+      - '-c'
+      - echo $(date) | md5sum | awk '{print $1}' > tag.txt
+    
+    - name: gcr.io/cloud-builders/docker
+      id: docker-build-push
+      entrypoint: bash
+      args:
+      - '-c'
+      - |
+        tag=`cat tag.txt`
+        docker build -t "gcr.io/gke-playground/$BRANCH_NAME:$tag" .
+        docker push "gcr.io/gke-playground/$BRANCH_NAME:$tag"
+        
+    - name: gcr.io/cloud-builders/kubectl
+      id: deploy-infrastructure
+      env: ['CLOUDSDK_COMPUTE_ZONE=australia-southeast1-a', 'CLOUDSDK_CONTAINER_CLUSTER=features']
+      entrypoint: bash
+      args:
+      - '-c'
+      - |
+        tag=`cat tag.txt`
+        sed -e "s|_BRANCH_NAME|$BRANCH_NAME|g" -e "s|_TAG|$tag|g" deployment-template.yaml | tee deployment.yaml
+        gcloud container clusters get-credentials --project="gke-playground" --zone="australia-southeast1-a" "features"
+        kubectl apply -f deployment.yaml
