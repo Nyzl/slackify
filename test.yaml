@@ -1,11 +1,4 @@
 steps:
-    - name: ubuntu
-      id: generate-image-tag
-      entrypoint: bash
-      args:
-      - '-c'
-      - echo $(date) | md5sum | awk '{print $1}' > tag.txt
-    
     - name: gcr.io/cloud-builders/docker
       id: docker-build-push
       entrypoint: bash
