@@ -10,24 +10,7 @@ steps:
       - Dockerfile
       id: Build
 
-    - name: gcr.io/cloud-builders/docker
-      args:
-      - push
-      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-      id: Push
-      
-    - name: gcr.io/google.com/cloudsdktool/cloud-sdk
-      args:
-      - run
-      - services
-      - update
-      - $_SERVICE_NAME
-      - '--platform=managed'
-      - '--image=$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-      - '--region=europe-west4'
-      - '--quiet'
-      id: Deploy
-      entrypoint: gcloud
+
   images:
     - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
   options:
