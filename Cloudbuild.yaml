@@ -1,0 +1,45 @@
+steps:
+    - name: gcr.io/cloud-builders/docker
+      args:
+        - build
+        - '--no-cache'
+        - '-t'
+        - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+        - .
+        - '-f'
+        - Dockerfile
+      id: Build
+    - name: gcr.io/cloud-builders/docker
+      args:
+        - push
+        - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+      id: Push
+    - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+      args:
+        - run
+        - services
+        - update
+        - $_SERVICE_NAME
+        - '--platform=managed'
+        - '--image=$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+        - >-
+          --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID,$_LABELS
+        - '--region=$_DEPLOY_REGION'
+        - '--quiet'
+      id: Deploy
+      entrypoint: gcloud
+  images:
+    - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+  options:
+    substitutionOption: ALLOW_LOOSE
+  substitutions:
+    _SERVICE_NAME: slackify
+    _DEPLOY_REGION: europe-west4
+    _GCR_HOSTNAME: eu.gcr.io
+    _PLATFORM: managed
+    _LABELS: gcb-trigger-id=8e08ef73-377b-4bdf-b93a-73910bfb7de0
+    _TRIGGER_ID: 8e08ef73-377b-4bdf-b93a-73910bfb7de0
+  tags:
+    - gcp-cloud-build-deploy-cloud-run
+    - gcp-cloud-build-deploy-cloud-run-managed
+    - slackify
