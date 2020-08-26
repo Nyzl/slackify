@@ -24,7 +24,7 @@ steps:
       - $_SERVICE_NAME
       - '--platform=managed'
       - '--image=$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
-      - '--region=$_DEPLOY_REGION'
+      - '--region=europe-west4'
       - '--quiet'
       id: Deploy
       #entrypoint: gcloud
