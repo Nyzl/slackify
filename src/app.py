@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.vars={}
 slack_message_token = []
 
-# Spotify Client Keys
+""" # Spotify Client Keys
 CLIENT_ID = os.environ.get('SP_CLIENT_ID', 'default')
 CLIENT_SECRET = os.environ.get('SP_CLIENT_SECRET', 'default')
 BOT_USER_TOKEN = os.environ.get('BOT_USER_TOKEN', 'default')
@@ -41,7 +41,7 @@ auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
 
 playlist_data = {}
 playlist_name = "holder"
-playlist_theme = "noddy"
+playlist_theme = "noddy" """
 
 @app.route('/',methods=['GET'])
 def home():
