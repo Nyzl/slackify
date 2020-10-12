@@ -3,7 +3,7 @@ FROM python:3.7
 LABEL version="1.0"
 LABEL maintainer="Ian Ansell"
 
-RUN pip install --upgrade pip
+#RUN pip install --upgrade pip
 
 COPY . /slackify
 WORKDIR /slackify

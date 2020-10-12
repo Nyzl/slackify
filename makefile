@@ -4,7 +4,7 @@
 PORT=8080
 project=customerjourney-214813/slackify
 dev_project=customerjourney-214813/slackify-test
-keyfile=/Users/Ian/Documents/GitHub/slackify-data/creds/cj_data.json
+keyfile=$(PWD)/creds
 
 build:
 	gcloud builds submit \
@@ -34,9 +34,13 @@ local:
 	-e K_SERVICE=dev \
 	-e K_CONFIGURATION=dev \
 	-e K_REVISION=dev-00001 \
-	-v ${keyfile}:/slackify/creds/cj_data.json:ro \
-	-e GOOGLE_APPLICATION_CREDENTIALS=/slackify/creds/cj_data.json \
-	gcr.io/${dev_project}
+	-v ${keyfile}:/slackify/creds:ro \
+	-e GOOGLE_APPLICATION_CREDENTIALS=/slackify/creds/google.json \
+	slackify
+#	gcr.io/${dev_project}
 
 pull:
 	docker pull gcr.io/${dev_project}
+
+
+

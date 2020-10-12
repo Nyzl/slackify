@@ -6,10 +6,19 @@ app = Flask(__name__)
 app.vars={}
 slack_message_token = []
 
-# Spotify Client Keys
-CLIENT_ID = os.environ.get('SP_CLIENT_ID', 'default')
-CLIENT_SECRET = os.environ.get('SP_CLIENT_SECRET', 'default')
-BOT_USER_TOKEN = os.environ.get('BOT_USER_TOKEN', 'default')
+# Client Keys
+
+try:
+    with open('../creds/slackify.json') as f:
+        creds = json.load(f)
+        CLIENT_ID = creds['SP_CLIENT_ID']
+        CLIENT_SECRET = creds['SP_CLIENT_SECRET']
+        BOT_USER_TOKEN = creds['BOT_USER_TOKEN']
+except:
+    CLIENT_ID = os.environ.get('SP_CLIENT_ID', 'default')
+    CLIENT_SECRET = os.environ.get('SP_CLIENT_SECRET', 'default')
+    BOT_USER_TOKEN = os.environ.get('BOT_USER_TOKEN', 'default')
+
 
 # Spotify URLS
 SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
@@ -40,8 +49,8 @@ url_args = "&".join(["{}={}".format(key,urllib.parse.quote(val)) for key,val in 
 auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
 
 playlist_data = {}
-playlist_name = "holder"
-playlist_theme = "noddy"
+playlist_name = "place"
+playlist_theme = "holder" 
 
 @app.route('/',methods=['GET'])
 def home():
