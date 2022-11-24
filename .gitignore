@@ -7,4 +7,5 @@ getting-started/*
 .vscode/*
 *.json
 creds/*
-.envrc
+.envrc*
+.env.yaml

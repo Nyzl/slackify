@@ -5,7 +5,6 @@ PORT=8080
 name=slackify
 project=slackify-main
 dev_project=slackify-dev
-keyfile=/Users/Ian/Documents/GitHub/slackify-data/creds/cj_data.json # need to remove this reference
 
 build:
 	gcloud builds submit \
@@ -17,6 +16,7 @@ deploy:
 	--platform=managed \
 	--region=europe-west2 \
 	--allow-unauthenticated \
+	--env-vars-file=.env.yaml \
 	--image=europe-west1-docker.pkg.dev/${project}/${name}/test-image:tag1 \
 	--memory=500M
 
@@ -38,8 +38,6 @@ local:
 	-e K_SERVICE=dev \
 	-e K_CONFIGURATION=dev \
 	-e K_REVISION=dev-00001 \
-	-v ${keyfile}:/slackify/creds/cj_data.json:ro \
-	-e GOOGLE_APPLICATION_CREDENTIALS=/slackify/creds/cj_data.json \
 	gcr.io/${dev_project}
 
 pull:

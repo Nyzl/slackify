@@ -5,5 +5,10 @@ Build a Slackbot that will interact with Spotify for the teams weekly colaborati
 
 Built in Python 3.7.4 previously deployed to Heroku, now on Google Cloud Run
 
+.envrc is used to store env variables for local use and .env.yaml is used to store them for Cloud Run....i hate that they are in two places
+
 # Deploy
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+Thge makefile handles building and deploying
+`make build`
+and
+`make deploy`
