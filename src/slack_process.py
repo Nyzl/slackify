@@ -1,5 +1,5 @@
 #this builds the response to send to Slack
-import slack_settings
+from src import slack_settings
 import re,datetime,random
 
 # work out what time of day it is

@@ -2,13 +2,14 @@
 .PHONY: build deploy local
 
 PORT=8080
-project=customerjourney-214813/slackify
-dev_project=customerjourney-214813/slackify-test
-keyfile=/Users/Ian/Documents/GitHub/slackify-data/creds/cj_data.json
+project=slackify-main
+dev_project=slackify-dev
+keyfile=/Users/Ian/Documents/GitHub/slackify-data/creds/cj_data.json # need to remove this reference
 
 build:
 	gcloud builds submit \
-	--tag gcr.io/${project}
+	--region=europe-west1 \
+	--tag europe-west1-docker.pkg.dev/slackify-main/slackify/test-image:tag1
 
 deploy:
 	gcloud run deploy \

@@ -1,5 +1,5 @@
 import requests,json
-import app
+from src import app
 
 def post(response):
     payload = {

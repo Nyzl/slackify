@@ -1,6 +1,6 @@
-from flask import Flask,render_template,request,redirect,g,make_response,Response
-import requests,os,json,base64,urllib
-import slack_process,slack_post
+from flask import Flask, render_template, request, redirect, g, make_response, Response
+import requests, os, json, base64, urllib
+from src import slack_process, slack_post
 
 app = Flask(__name__)
 app.vars={}
@@ -19,9 +19,9 @@ API_VERSION = "v1"
 SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 
 # Server-side Parameters
-CLIENT_SIDE_URL = "http://127.0.0.1"
-SERVER_SIDE_URL = "https://slackifybot.herokuapp.com"
-PORT = 8080
+CLIENT_SIDE_URL = os.environ.get('CLIENT_SIDE_URL', 'default')
+SERVER_SIDE_URL = os.environ.get('SERVER_SIDE_URL', 'default')
+PORT = os.environ.get('PORT', 'default')
 REDIRECT_URI = "{}/callback/q".format(SERVER_SIDE_URL)
 SCOPE = "playlist-modify-public playlist-modify-private playlist-read-private playlist-read-collaborative"
 STATE = ""
