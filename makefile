@@ -2,6 +2,7 @@
 .PHONY: build deploy local
 
 PORT=8080
+name=slackify
 project=slackify-main
 dev_project=slackify-dev
 keyfile=/Users/Ian/Documents/GitHub/slackify-data/creds/cj_data.json # need to remove this reference
@@ -9,13 +10,15 @@ keyfile=/Users/Ian/Documents/GitHub/slackify-data/creds/cj_data.json # need to r
 build:
 	gcloud builds submit \
 	--region=europe-west1 \
-	--tag europe-west1-docker.pkg.dev/slackify-main/slackify/test-image:tag1
+	--tag europe-west1-docker.pkg.dev/${project}/${name}/test-image:tag1
 
 deploy:
-	gcloud run deploy \
-	--platform managed \
-	--image gcr.io/${project} \
-	--memory 500M
+	gcloud run deploy ${name} \
+	--platform=managed \
+	--region=europe-west2 \
+	--allow-unauthenticated \
+	--image=europe-west1-docker.pkg.dev/${project}/${name}/test-image:tag1 \
+	--memory=500M
 
 dev-build:
 	gcloud builds submit \
