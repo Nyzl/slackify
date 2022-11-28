@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, g, make_response, Response
 import requests, os, json, base64, urllib
+import logging as log
+import google.cloud.logging as logging
 from src import slack_process, slack_post
 
 app = Flask(__name__)
@@ -43,6 +45,9 @@ playlist_data = {}
 playlist_name = "holder"
 playlist_theme = "noddy"
 
+logging_client = logging.Client()
+logging_client.setup_logging()
+
 @app.route('/',methods=['GET'])
 def home():
         return "you GETTED me"
@@ -53,84 +58,101 @@ def slack():
     global CHANNEL_ID
     global slack_message_token
     in_payload = request.get_json()
-    CHANNEL_ID = in_payload["event"]["channel"]
-    token = in_payload['event']['client_msg_id']
+    try:
+        CHANNEL_ID = in_payload["event"]["channel"]
+        log.info(f"slackify: mention in {CHANNEL_ID}") 
+        token = in_payload['event']['client_msg_id']
 
-    if token in slack_message_token:
-        print("duplicate message recieved")
-    else:
-        response = slack_process.process(in_payload)
-        slack_message_token.append(token)
-        slack_post.post(response)
+        if token in slack_message_token:
+            print("duplicate message recieved")
+        else:
+            response = slack_process.process(in_payload)
+            slack_message_token.append(token)
+            slack_post.post(response)
 
-    return make_response("", 200)
+        return make_response("", 200)
+    
+    except KeyError:
+        log.info(f"slackify: KeyError") 
+        return make_response(in_payload, 200)
+
 
     
 @app.route('/slack/actions',methods=['POST'])
 def slack_action():
     global playlist_name
     global playlist_theme
-    in_payload = json.loads(request.form["payload"])
+    try:
+        in_payload = json.loads(request.form["payload"])
 
-    if in_payload["type"] == "block_actions":
-        trigger_id = in_payload["trigger_id"]
+        if in_payload["type"] == "block_actions":
+            log.info(f"slackify: block actions") 
+            trigger_id = in_payload["trigger_id"]
 
-        out_payload = {
-        "trigger_id": trigger_id,
-        "dialog": {
-            "callback_id": "playlist_button",
-            "title": "Create a playlist",
-            "submit_label": "Create",
-            "state": "Limo",
-            "elements": [
-                {
-                    "type": "text",
-                    "label": "Playlist name",
-                    "name": "playlist_name_input"
-                },
-                {
-                    "type": "text",
-                    "label": "What's the theme?",
-                    "name": "theme_input"
-                }
-            ]
-        }
-        }
-
-        headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-        r = requests.post("https://slack.com/api/dialog.open", headers=headers, data=json.dumps(out_payload))
-        return make_response("", 200)
-
-    elif in_payload["type"] == "dialog_submission":
-        req = requests.request('GET', in_payload["response_url"])
-        playlist_name = in_payload["submission"]["playlist_name_input"]
-        playlist_theme = in_payload["submission"]["theme_input"]
-
-        out_payload = {
-        "channel": CHANNEL_ID,
-        "token": str(BOT_USER_TOKEN),
-        "text": "Hey <@" + in_payload["user"]["name"] + ">. I'm creating a playlist called \"" + in_payload["submission"]["playlist_name_input"] + "\"",
-        "attachments": [
-            {
-                "fallback": "Confirm your playlist, ya filthy animal" + auth_url,
-                "actions": [
+            out_payload = {
+            "trigger_id": trigger_id,
+            "dialog": {
+                "callback_id": "playlist_button",
+                "title": "Create a playlist",
+                "submit_label": "Create",
+                "state": "Limo",
+                "elements": [
                     {
-                        "type": "button",
-                        "text": ":musical_note: Confirm",
-                        "url": auth_url
+                        "type": "text",
+                        "label": "Playlist name",
+                        "name": "playlist_name_input"
+                    },
+                    {
+                        "type": "text",
+                        "label": "What's the theme?",
+                        "name": "theme_input"
                     }
                 ]
             }
-        ]
-        }
+            }
+
+            headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+            r = requests.post("https://slack.com/api/dialog.open", headers=headers, data=json.dumps(out_payload))
+            return make_response("", 200)
+
+        elif in_payload["type"] == "dialog_submission":
+            req = requests.request('GET', in_payload["response_url"])
+            playlist_name = in_payload["submission"]["playlist_name_input"]
+            playlist_theme = in_payload["submission"]["theme_input"]
+
+            out_payload = {
+            "channel": CHANNEL_ID,
+            "token": str(BOT_USER_TOKEN),
+            "text": "Hey <@" + in_payload["user"]["name"] + ">. I'm creating a playlist called \"" + in_payload["submission"]["playlist_name_input"] + "\"",
+            "attachments": [
+                {
+                    "fallback": "Confirm your playlist, ya filthy animal" + auth_url,
+                    "actions": [
+                        {
+                            "type": "button",
+                            "text": ":musical_note: Confirm",
+                            "url": auth_url
+                        }
+                    ]
+                }
+            ]
+            }
 
 
-        headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-        r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
-        return make_response("", 200)
+            headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+            r = requests.post("https://slack.com/api/chat.postMessage", headers=headers, data=json.dumps(out_payload))
+            return make_response("", 200)
+    
+    except KeyError:
+        log.info(f"slackify: KeyError") 
+        return make_response(request.get_data(),200)
+
+@app.route("/callback")
+def callback():
+    return "i can haz callback"
 
 @app.route("/callback/q")
-def callback():
+def callback_q():
     global playlist_data
     # Auth Step 4: Requests refresh and access tokens
     auth_token = request.args['code']
